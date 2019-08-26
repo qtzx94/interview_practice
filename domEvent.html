@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM事件</title>
+</head>
+
+<body>
+    <!-- 1.DOM事件级别：
+            DOM0：element.onClick=function(){}
+            DOM2: element.addEventListener('click', function(){}, false) // 第三个参数指定在捕获/冒泡阶段执行，默认是false（冒泡）
+            DOM3：element.addEventListener('keyup', function(){}, false) // DOM3比DOM2增加了很多事件类型，鼠标、键盘事件
+        2.事件模型：
+            捕获，冒泡
+        3.事件流：
+            捕获阶段->目标阶段->冒泡阶段
+        4.描述DOM事件捕获的具体流程：
+            window->document->html(用document.documentElement获取)->body(用document.body获取)->...->目标元素
+        5.Event对象常见应用：
+            event.preventDefault() 阻止默认行为
+            event.stopPropagation() 阻止事件冒泡
+            event.stopImmediatePropagration() 事件响应优先级（eg：当一个按钮同时绑定了两个事件A和B，当点击按钮时，绑定的两个click事件会同时执行，此时，想要执行A的时候阻止B同时执行，可以在A事件中加入该方法）
+            event.currentTarget 指向添加监听事件的对象
+            event.target 指向触发事件监听的对象
+        6.自定义事件：
+            var eve = new Event('custom')；
+            ev.addEventListener('custom', function() {
+                console.log('custom');
+            });
+            ev.dispatchEvent(eve);
+
+            or
+
+            var eve2 = new CustomEvent('custom', obj) // obj表示参数
+    -->
+
+
+    <!-- e.target可以用来实现事件委托，原理是通过事件冒泡（或者是事件捕获）给父元素添加事件监听，
+        e.target指向引发触发事件的元素，下面例子中，e.target指向用户点击的li，由于事件冒泡，
+        li的点击事件冒泡到ul上，通过给ul添加监听事件从而达到给每个li添加监听事件的效果，
+        而e.currentTarget指向的是给绑定事件监听的那个对象，即ul 
+    -->
+    <ul>
+        <li>hello 1</li>
+        <li>hello 2</li>
+        <li>hello 3</li>
+        <li>hello 4</li>
+    </ul>
+    <script>
+        let ul = document.querySelectorAll('ul')[0];
+        let aLi = document.querySelectorAll('li');
+        ul.addEventListener('click', function (e) {
+            let oLi1 = e.target;
+            let oLi2 = e.currentTarget;
+            console.log(oLi1);   //  被点击的li
+            console.log(oLi2);   // ul
+            console.log(oLi1 === oLi2);  // false(事件冒泡阶段不相等，事件的目标阶段两者相等)
+            console.log(e.currentTarget === this); // true
+            console.log(e.target === this); // false
+        })
+    </script>
+</body>
+
+</html>
