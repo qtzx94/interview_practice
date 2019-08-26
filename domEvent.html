@@ -11,26 +11,34 @@
 <body>
     <!-- 1.DOM事件级别：
             DOM0：element.onClick=function(){}
+                  DOM0中将事件属性至为null来删除事件
             DOM2: element.addEventListener('click', function(){}, false) // 第三个参数指定在捕获/冒泡阶段执行，默认是false（冒泡）
-            DOM3：element.addEventListener('keyup', function(){}, false) // DOM3比DOM2增加了很多事件类型，鼠标、键盘事件
+                  DOM2中可以为特定的对象的事件注册多个事件监听
+                  用removeEventListener('click', funciton(){}, false)删除事件监听
+            DOM3：element.addEventListener('keyup', function(){}, false) // DOM3比DOM2增加了很多事件类型，鼠标、键盘、UI、焦点、滚轮、文本、合成、变动事件，还新增了自定义事件
         2.事件模型：
             捕获，冒泡
-        3.事件流：
+        3.事件流：描述的是从页面中接收事件的顺序，也可以理解为事件在页面中传播的顺序
+            事件捕获阶段：事件从最上一级标签开始往下查找，直到捕获到事件目标（target）
+            事件冒泡阶段：事件从事件目标（target）开始，往上冒泡直到页面的最上一级标签
             捕获阶段->目标阶段->冒泡阶段
         4.描述DOM事件捕获的具体流程：
-            window->document->html(用document.documentElement获取)->body(用document.body获取)->...->目标元素
+            注意：最上层的是window而不是html
+            window->document->html(用document.documentElement获取)->body(用document.body获取)-> ··· ->目标元素
         5.Event对象常见应用：
-            event.preventDefault() 阻止默认行为
-            event.stopPropagation() 阻止事件冒泡
-            event.stopImmediatePropagration() 事件响应优先级（eg：当一个按钮同时绑定了两个事件A和B，当点击按钮时，绑定的两个click事件会同时执行，此时，想要执行A的时候阻止B同时执行，可以在A事件中加入该方法）
+            event.preventDefault() 阻止默认事件，eg：阻止a标签的跳转
+            event.stopPropagation() 阻止事件冒泡，让事件停留在当前dom而不会向上传递
+            event.stopImmediatePropagration() 事件响应优先级，
+                （eg：当一个按钮同时绑定了两个事件A和B，当点击按钮时，绑定的两个click事件会同时执行，此时，想要执行A的时候阻止B同时执行，可以在A事件中加入该方法），
+                即用于阻止剩余事件处理函数的执行，并防止当前事件在DOM树冒泡
             event.currentTarget 指向添加监听事件的对象
             event.target 指向触发事件监听的对象
         6.自定义事件：
             var eve = new Event('custom')；
-            ev.addEventListener('custom', function() {
+            el.addEventListener('custom', function() {
                 console.log('custom');
             });
-            ev.dispatchEvent(eve);
+            el.dispatchEvent(eve);
 
             or
 
@@ -61,6 +69,57 @@
             console.log(e.currentTarget === this); // true
             console.log(e.target === this); // false
         })
+    </script>
+
+    <div id="el">
+        <style>
+            #el {
+                width: 300px;
+                height: 100px;
+                background: red;
+                color: #fff;
+                text-align: center;
+                line-height: 100px;
+            }
+        </style>
+        目标元素
+    </div>
+    <script>
+        // 事件捕获流程
+        let el = document.getElementById('el');
+        // window
+        window.addEventListener('click', function(){
+            console.log('window captrue');
+        }, true); // true表示捕获阶段
+
+        // document
+        document.addEventListener('click', function(){
+            console.log('document captrue');
+        }, true);
+
+        // html
+        document.documentElement.addEventListener('click', function(){
+            console.log('html captrue');
+        }, true);
+
+        // body
+        document.body.addEventListener('click', function(){
+            console.log('body captrue');
+        }, true);
+
+        // el
+        el.addEventListener('click', function(){
+            console.log('el captrue');
+        }, true);
+
+        // 自定义事件
+        let eve = new Event('test');
+        el.addEventListener('test', function(){
+            console.log('test dispatch');
+        })
+        setTimeout(function() {
+            el.dispatchEvent(eve);
+        }, 3000);
     </script>
 </body>
 
