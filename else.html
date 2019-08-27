@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="http://localhost/test.js"></script>
+</head>
+<body>
+    <script>
+        function callback(data) {
+            alert(data.message);
+        }
+        // 1.同源策略及限制：
+        //     同源策略限制从一个源加载的文档或脚本如何与来自另一个源的资源进行交互，是一个用于隔离潜在恶意文件的关键的安全机制
+        //     Cookie、LocalStorage、IndexDB无法获取
+        //     DOM无法获取
+        //     AJAX请求不能发送
+        // 2.前后端通信方式：
+        //     Ajax（同源）
+        //     WebSocket
+        //     CORS
+        // 3.如何创建Ajax：
+        //     XMLHttpRequest对象的工作流程
+        //     兼容性处理（不支持IE浏览器）
+        //     事件的触发条件
+        //     事件的触发顺序
+        /**
+        * [json 实现ajax的json]
+        * @param  {[type]} options [description]
+        * @return {[type]}         [description]
+        */
+        // util.json = function (options) {
+        //     var opt = {
+        //         url: '',
+        //         type: 'get',
+        //         data: {},
+        //         success: function () { },
+        //         error: function () { },
+        //     };
+        //     util.extend(opt, options);
+        //     if (opt.url) {
+        //         var xhr = XMLHttpRequest
+        //             ? new XMLHttpRequest()
+        //             : new ActiveXObject('Microsoft.XMLHTTP');
+        //         var data = opt.data,
+        //             url = opt.url,
+        //             type = opt.type.toUpperCase(),
+        //             dataArr = [];
+        //         for (var k in data) {
+        //             dataArr.push(k + '=' + data[k]);
+        //         }
+        //         if (type === 'GET') {
+        //             url = url + '?' + dataArr.join('&');
+        //             xhr.open(type, url.replace(/\?$/g, ''), true);
+        //             xhr.send();
+        //         }
+        //         if (type === 'POST') {
+        //             xhr.open(type, url, true);
+        //             xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        //             xhr.send(dataArr.join('&'));
+        //         }
+        //         xhr.onload = function () {
+        //             if (xhr.status === 200 || xhr.status === 304) {
+        //                 var res;
+        //                 if (opt.success && opt.success instanceof Function) {
+        //                     res = xhr.responseText;
+        //                     if (typeof res ==== 'string') {
+        //                         res = JSON.parse(res);
+        //                         opt.success.call(xhr, res);
+        //                     }
+        //                 }
+        //             } else {
+        //                 if (opt.error && opt.error instanceof Function) {
+        //                     opt.error.call(xhr, res);
+        //                 }
+        //             }
+        //         };
+        //     }
+        // };
+
+        // 4.跨域通信的几种方式：
+        //     JSONP: 通过（script标签的src属性不被同源策略约束）,创建一个回调函数callback，如何在远程服务上代用这个函数并将JSON数据形式作为参数传递，完成回调
+                    // eg:
+                        程序A：
+                            <script type="text/javascript">
+                                // 回调函数
+                                function callback(data) {
+                                    alert(data.message);
+                                }
+                            </script>
+                            <script type="text/javascript" src="http://localhost:20002/test.js"></script>
+
+                        程序B：
+                            // 调用callback函数，并以json数据形式作为阐述传递，完成回调
+                            callback({message:"success"});
+        //     Hash
+        //     postMessage
+        //     WebSocket
+        //     CORS
+    </script>
+</body>
+</html>
