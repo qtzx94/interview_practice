@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象</title>
+</head>
+
+<body>
+    <script>
+        // es5类的声明       
+        function Animal() {
+            this.name = 'dog';
+        }
+        // es6类的声明
+        class Animal2 {
+            constructor() {
+                this.name = 'cat';
+            }
+        }
+        // 实例化类的对象
+        console.log(new Animal(), new Animal2());
+
+
+        // 1.借助构造函数实现继承
+        // 缺点：只能实现部分继承（父级原型对象上的方法和属性无法通过构造函数继承给子类），当父级所有属性都在构造函数内部时，可以实现完全继承
+        //     eg：Parent1.prototype.say = function() {console.log('say hi')};
+        //     console.log(new Child1().say()); // error
+        function Parent1() {
+            this.name = 'parent1';
+        }
+        function Child1() {
+            Parent1.call(this); // 将父级构造函数中的this指向子构造函数的实例
+            this.type = 'child1';
+        }
+        console.log(new Child1);
+
+        // 2.借助原型链实现继承
+        // 缺点：当从同一个类中实例化多个对象后，改变其中一个对象的属性，会影响到其他对象属性，即实例不隔离
+        function Parent2() {
+            this.name = 'parent2';
+            this.list = [1,3,4,5];
+        }
+        function Child2() {
+            this.type = 'child2';
+        }
+        Child2.prototype = new Parent2();
+        console.log(new Child2()); // new Child2().__proto__ = Child2.prototype = new Parent2()  实例的__proto__等于构造函数的prototype
+        // 测试：
+        var s1 = new Child2();
+        var s2 = new Child2();
+        s1.list.push(10);
+        console.log(s2.list); // [1, 3, 4, 5, 10]
+        // s1修改的是它原型的属性，原型属性的修改，会导致所有继承自该原型的类的属性都会一起改变，因为原型链上的原型是共用的，即s1.__proto__ === s2.__proto__为true，所以Child2的实例之前并未隔离开
+
+        // 3.组合继承（构造函数+原型链）
+        function Parent3() {
+            this.name = 'parent3';
+            this.list = [1,3,4,5];
+        }
+        function Child3() {
+            Parent3.call(this);
+            this.type = 'child3';
+        }
+        Child3.prototype = new Parent3();
+        // 测试
+        var s3 = new Child3();
+        var s4 = new Child3();
+        s3.list.push(10);
+        console.log(s4.list); // [1, 3, 4, 5]
+
+        // 4.对组合继承的优化1
+        // 上述实现组合继承的方法中，执行了两次父类的构造函数（分别是Parent3.call(this), new Parent3()），所以优化这点
+        // 分析：
+        // 组合方式继承是为了解决构造函数继承中，无法继承父类原型中的属性和方法，所以将子类的原型指向父类，但是父类的属性已经存在于子类中了（通过Parent3.call(this)实现），
+        // 子类只是缺少父类原型中的属性和方法，所以直接将Child3.prototype = Parent3.prototype即可
+        function Parent4 () {
+            this.name = 'parent4';
+            this.play = [1, 2, 3];
+        }
+
+        function Child4 () {
+            Parent4.call(this);
+            this.type = 'child4';
+        }
+        Child4.prototype = Parent4.prototype;  //优化的点在这里
+        // 测试
+        var s5 = new Child4();
+        var s6 = new Child4();
+        console.log(s5, s6);
+        console.log(s5 instanceof Child4, s5 instanceof Parent4); // true, true
+        console.log(s5.constructor); // Parent4 因为Child4.prototype = Parent4.prototype，使得共用一个原型对象，Child4本身没有constructor函数，只能从Parent4中继承该方法
+
+        // 5.对组合继承的优化2
+        // 上述组合继承优化1中，使用了Child4.prototype = Parent4.prototype导致共用了一个原型对象，使得s5.constructor无法区分实例是由父类还是子类创造，
+        // 此时可以使用Child5.prototype = Object.create(Parent5.prototype)来优化
+        function Parent5 () {
+            this.name = 'parent5';
+            this.play = [1, 2, 3];
+        }
+
+        function Child5 () {
+            Parent5.call(this);
+            this.type = 'child5';
+        }
+        Child5.prototype = Object.create(Parent5.prototype); // 把子类的原型指向通过Object.create创建的中间对象,实现了子类和父类构造函数的分离
+        // 注：
+        // Object.create的实现方式: 内部创建一个空函数，将该函数的prototype指向传参的对象，然后返回new的实例
+        // Object.create = function (o) {
+        //     var F = function() {};
+        //     F.prototype = o;
+        //     return new F();
+        // }
+        // 这里即Object.create()创建的对象的prototype属性指向的是Parent5.prototype
+        // 即通过Child5创建的实例的.__proto__ ===  Child5.prototype === Object.create(Parent5.prototype)创建的对象，
+        // 而Object.create内部的函数的prototype又指向Parent5.prototype
+        
+        // 此时把子类的原型指向Object.create(Parent5.prototype)，实现了子类和父类构造函数的分离，但是这时子类中还是没有自己的构造函数，所以紧接着又设置了子类的构造函数，由此实现了完美的组合继承。
+        Child5.prototype.constructor = Child5; // 把Child5的原型的构造函数指向自己
+
+        // 测试
+        var s7 = new Child5();
+        console.log(s7 instanceof Child5, s7 instanceof Parent5); // true, true
+        console.log(s7.constructor);
+    </script>
+</body>
+
+</html>
