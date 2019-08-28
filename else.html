@@ -98,7 +98,14 @@
         //     Hash
         //     postMessage
         //     WebSocket
-        //     CORS
+        //     CORS原理：浏览器会拦截ajax请求，如果该请求跨域，会在http头信息中加一个origin字段（参考http://www.ruanyifeng.com/blog/2016/04/cors.html）
+            fetch('/some/url', {
+                method: 'get',
+            }).then(function (response) {
+
+            }).catch(function (err) {
+                
+            })
     </script>
 </body>
 </html>
