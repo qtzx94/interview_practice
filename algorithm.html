@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Algorithm</title>
+</head>
+<body>
+    <script>
+        // 1.排序
+        let sourceArray = [8, 4, 90, 8, 34, 67, 1, 26, 17];
+        // 冒泡排序：
+        // 1.比较相邻的两个数，如果第一个比第二个大，就交换他们两个
+        // 2.对每一对相邻元素做相同的工作，从开始第一对到结尾最后一对，这步结束，最后一个元素是最大的数
+        // 3.针对所有元素重复上述步骤，除了最后一个
+        // 4.持续每次对越来越少的元素重复上面的步骤，直到没有一个数字需要比较，排序完成
+        function bubbleSort(arr) {
+            for(let i = 1; i < arr.length; i++) {
+                // 设定一个标记，若为true，则表示此次循环没有进行交换，也就是待排序列已经有序，排序完成
+                let flag = true;
+                for(let j = 0; j < arr.length - i; j++) {
+                    if(arr[j] > arr[j+1]) {
+                        [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+                        flag = false;
+                    }
+                }
+                if(flag) {
+                    break;
+                }
+            }
+            return arr;
+        }
+        // console.log(bubbleSort(sourceArray));
+
+        // 选择排序：
+        // 1.首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置
+        // 2.再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。
+        // 3.重复第二步，直到所有元素均排序完毕。
+        function selectionSort(arr) {
+            // 总共要进行N-1轮比较
+            for(let i = 0; i < arr.length - 1; i++) {
+                let min = i;
+                // 每轮需要比较N-i次
+                for(let j = i + 1; j < arr.length; j++) {
+                    if(arr[j] < arr[min]) {
+                        // 记录目前找到的最小值元素的下标
+                        min = j;
+                    }
+                }
+                // 将找到的最小值与i位置所在的值进行交换
+                if(i != min) {
+                    [arr[i], arr[min]] = [arr[min], arr[i]];
+                }
+            }
+            return arr;
+        }
+        // console.log(selectionSort(sourceArray));
+
+        // 插入排序:
+        // 1.将待排序列的第一个元素看做是一个有序序列，把第二个元素到最后一个元素当成是一个未排序序列
+        // 2.依次扫描未排序序列，将扫描过的每一个元素插入到有序序列的适当位置（如果待插入的元素与有序序列中的某个元素相等，则将插入元素插入到相等元素的后面）
+        function insertSort(arr) {
+            // 从下标为1的元素开始选择合适的位置插入，因为下标为0的第一个元素默认是有序序列
+            for(let i = 1; i < arr.length; i++) {
+                // 当前扫描到的要插入的数据
+                let insertVal = arr[i];
+                // 从已经排序好的序列的最右端开始比较，找到比当前需要插入的数小的数
+                let j = i;
+                while(j > 0 && insertVal < arr[j-1]) {
+                    arr[j] = arr[j-1];
+                    j--;
+                }
+                // 存在比其小的数
+                if(j != i) {
+                    arr[j] = insertVal;
+                }
+            }
+            return arr;
+        }
+        // console.log(insertSort(sourceArray));
+
+        // 希尔排序
+        // 1.选择一个增量序列 t1，t2，……，tk，其中 ti > tj, tk = 1
+        // 2.按增量序列个数 k，对序列进行 k 趟排序
+        // 3.每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度
+        function shellSort(arr) {
+            let gap = 1; // 增量
+            while(gap < arr.length / 3) {
+                gap = gap * 3 + 1;
+            }
+            while(gap > 0) {
+                for(let i = gap; i < arr.length; i++) {
+                    let temp = arr[i];
+                    let j = i - gap;
+                    while(j >= 0 && arr[j] > temp) {
+                        arr[i] = arr[j];
+                        j-=gap;
+                    }
+                    arr[i] = temp;
+                }
+                gap = Math.floor(gap / 3);
+            }
+            return arr;
+        } 
+        console.log(shellSort(sourceArray));
+
+        // 快速排序：
+        // 1.先从数列中取出一个数作为"基准(pivot)"。
+        // 2.分区过程：将比这个"基准"大的数全放到"基准"的右边，小于或等于"基准"的数全放到"基准"的左边。
+        // 3.再对左右区间重复第二步，直到各区间只有一个数。
+        // 普通实现（没有用到原地算法）：
+        function quickSort(arr) {
+            if(arr.length <= 1) { return arr; };
+            let pivotIndex = Math.floor(arr.length / 2); // 基准位置（理论上可以选任何值）
+            let pivot = arr.splice(pivotIndex, 1)[0]; // 基准值
+            let leftArr = [],
+                rightArr = [];
+            arr.map((val, index, arr) => {
+                if(val < pivot) {
+                    leftArr.push(val);
+                }else {
+                    rightArr.push(val);
+                }
+            })
+            return quickSort(leftArr).concat([pivot], quickSort(rightArr)); // 链接左数组，基准数数组，右数组
+        }
+
+        // 测试
+        var arr = [14, 3, 15, 7, 2, 76, 11];
+        // console.log(quickSort(arr)); //[2, 3, 7, 11, 14, 15, 76]
+        /*
+        * 基准为7时，第一次分区得到左右两个子集[ 3, 2,]   7   [14, 15, 76, 11];
+        * 以基准为2，对左边的子集[3,2]进行划分区排序,得到[2] 3。左子集排序全部结束
+        * 以基准为76，对右边的子集进行划分区排序,得到[14, 15, 11] 76
+        * 此时对上面的[14, 15, 11]以基准为15再进行划分区排序， [14, 11] 15
+        * 此时对上面的[14, 11]以基准为11再进行划分区排序， 11  [14]
+        * 所有无序区间都只剩下一个元素，递归结束
+        *
+        */
+
+        // 弊端：获取基准点使用了一个splice操作，在js中splice会对数组进行一次拷贝的操作，而它最坏的情况下复杂度为O(n)，而O(n)代表着针对数组规模的大小进行了一次循环操作。
+        //      首先我们每次执行都会使用到两个数组空间，产生空间复杂度。
+        //      concat操作会对数组进行一次拷贝，而它的复杂度也会是O(n)
+        //      对大量数据的排序来说相对会比较慢
+
+        // 优点：代码简单明了，可读性强，易于理解，非常适合用于面试笔试题
+
+        // 实现二：
+        function quickSort2(arr) {
+            // 交换
+            function swap(arr, a, b) {
+                [arr[a], arr[b]] = [arr[b], arr[a]]; // 解构赋值
+            }
+
+            // 分区
+            function partition(arr, left, right) {
+                /**
+                * 开始时不知最终pivot的存放位置，可以先将pivot交换到后面去
+                * 这里直接定义最右边的元素为基准
+                */
+                var pivot = arr[right];
+                /**
+                * 存放小于pivot的元素时，是紧挨着上一元素的，否则空隙里存放的可能是大于pivot的元素，
+                * 故声明一个storeIndex变量，并初始化为left来依次紧挨着存放小于pivot的元素。
+                */
+                var storeIndex = left;
+                for (var i = left; i < right; i++) {
+                    if (arr[i] < pivot) {
+                        /**
+                        * 遍历数组，找到小于的pivot的元素，（大于pivot的元素会跳过）
+                        * 将循环i次时得到的元素，通过swap交换放到storeIndex处，
+                        * 并对storeIndex递增1，表示下一个可能要交换的位置
+                        */
+                        swap(arr, storeIndex, i);
+                        storeIndex++;
+                    }
+                }
+                // 最后： 将pivot交换到storeIndex处，基准元素放置到最终正确位置上
+                swap(arr, right, storeIndex);
+                return storeIndex;
+            }
+
+            function sort(arr, left, right) {
+                if (left > right) return;
+
+                var storeIndex = partition(arr, left, right);
+                sort(arr, left, storeIndex - 1);
+                sort(arr, storeIndex + 1, right);
+            }
+
+            sort(arr, 0, arr.length - 1);
+            return arr;
+        }
+
+        // console.log(quickSort2(sourceArray));
+                
+
+
+        // 2.堆栈、队列、链表
+        // 3.递归
+        // 4.波兰式和逆波兰式
+    </script>
+    
+</body>
+</html>
