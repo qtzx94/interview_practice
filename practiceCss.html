@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Document</title>
+	<style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-size: 14px;
+            font-family: 'Microsoft YaHei','SimSun';
+            height: 8888px;
+        }
+        .header {
+            height: 58px;
+            background-color: #191D3A;
+        }
+        /* 版心 */
+        .inner_c {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .header .logo {
+            float: left;
+            padding-left: 12px;
+            margin-right: 39px;
+            width: 174px;
+            height: 58px;
+        }
+        .header .logo a {
+            display: block;
+            margin-top: 10px;
+            width: 174px;
+            height: 58px;
+            background: url("http://www.boyaa.com/images/logo.png") no-repeat;
+            text-indent: -999em;
+        }
+        .header .nav {
+            float: left;
+        }
+        .header .nav ul {
+            list-style: none;
+        }
+        .header .nav ul li {
+            float: left;
+            width: 100px;
+            line-height: 58px;
+            border-left: 1px solid #252947;
+        }
+        .header .nav ul li .last {
+            border-right: 1px solid #252947;/*最后一个li右边加间隔线*/
+        }
+        .header .nav ul li a {
+            display: block;
+            height: 58px;
+            text-decoration: none;
+            color: #818496;
+            text-align: center;
+        }
+        .header .nav ul li a.current {
+            background-color: #252947;
+            color: white;
+        }
+        .header .nav ul li a:hover {
+            background-color: #252947;
+            color: white;
+        }
+        .header .jrwm_box {
+            float: left;
+            height: 58px;
+            width: 100px;
+            padding-left: 48px;
+            padding-top: 12px;
+        }
+        .header .jrwm_box .jrwm {
+            height: 34px;
+            width: 98px;
+            border: 1px solid #3aca7a;
+            border-radius: 3px;
+            background-color: #38b774;
+            color: white;
+            text-align: center;
+        }
+        .header .jrwm_box .jrwm a {
+            display: block;
+            line-height: 34px;
+            text-decoration: none;
+            color: white;
+        }
+        .banner {
+            height: 465px;
+            background: url('http://www.boyaa.com/pic/banner20190329.jpg') no-repeat center top;
+        }
+        .content {
+            padding-top: 50px;
+        }
+        .content .product {
+            height: 229px;
+            border-bottom: 1px solid #DBE1E7;   
+        }
+        .content .product ul {
+            list-style: none;
+        }
+        .content .product ul li {
+            float: left;
+            width: 218px;
+            margin-right: 43px;
+        }
+        .content .product ul li.last {
+            margin-right: 0;
+            width: 217px;
+        }
+        .content .product ul li img {
+            width: 218px;
+            height: 130px;
+        }
+        .content .product ul li.last img {
+            width: 217px;
+        }
+        .content .product ul li h3 {
+            text-align: center;
+            line-height: 38px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .content .product ul li p.djbf {
+            text-align: center;
+            line-height: 16px;
+        }
+        .content .product ul li p.djbf a {
+            font-size: 12px;
+            color: #38B774;
+            text-decoration: none;
+            background: url("http://www.boyaa.com/images/arrow.png") no-repeat right 5px;
+            padding-right: 12px;
+        }
+	</style>
+</head>
+<body>
+    <!-- 导航栏 -->
+	<div class="header">
+		<div class="inner_c">
+			<!-- <div class="logo">
+				<img src="http://www.boyaa.com/images/logo.png" alt="">
+            </div> -->
+            <h1 class="logo">
+                <a href="#">
+                    博雅互动-世界上最好的游戏公司
+                </a>
+            </h1>
+            <div class="nav">
+                <ul>
+                    <li><a href="#" class="current">首页</a></li>
+                    <li><a href="#">博雅游戏</a></li>
+                    <li><a href="#">博雅新闻</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">客服中心</a></li>
+                    <li class="last"><a href="#">投资者关系</a></li>
+                </ul>
+            </div>
+            <div class="jrwm_box">
+                <div class="jrwm">
+                    <a href="https://www.google.com" target="_blank">加入我们</a>
+                </div>
+            </div>
+		</div>
+    </div>
+    <!-- 在导航栏和banner之间隔一堵墙 -->
+    <div class="cl"></div>
+
+    <div class="banner"></div>
+
+    <!-- 内容区域 -->
+    <div class="content inner_c">
+        <div class="product">
+            <ul>
+                <li>
+                    <p><img src="http://www.boyaa.com/pic/video.jpg" alt=""></p>
+                    <h3>BPT宣传片</h3>
+                    <p class="djbf">
+                        <a href="#">点击播放</a>
+                    </p>
+                </li>
+                <li>
+                    <p><img src="http://www.boyaa.com/pic/gamepic9.jpg" alt=""></p>
+                    <h3>BPT宣传片</h3>
+                    <p class="djbf">
+                        <a href="#">点击播放</a>
+                    </p>
+                </li>
+                <li>
+                    <p><img src="http://www.boyaa.com/images/byamaj.jpg" alt=""></p>
+                    <h3>BPT宣传片</h3>
+                    <p class="djbf">
+                        <a href="#">点击播放</a>
+                    </p>
+                </li>
+                <li class="last">
+                    <p><img src="http://www.boyaa.com/pic/gamepic2.jpg" alt=""></p>
+                    <h3>BPT宣传片</h3>
+                    <p class="djbf">
+                        <a href="#">点击播放</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

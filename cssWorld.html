@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    	body {
+    		/* margin: 0;
+            padding: 0;
+            background-color: #eeeeee; */
+    	}
+        .box {
+        	/* width: 200px;
+        	height: 200px;
+        	margin: 100px auto;
+        	background-color: green;
+        	border: 1px solid #000; */
+
+        	/* 浏览器添加私有前缀
+        		-webkit-: 谷歌 苹果;
+        		-moz-: 火狐;
+        		-ms-: IE;
+        		-o-: 欧朋;
+        	*/
+        	/*background: -webkit-linear-gradient(left, green, yellow);
+        	background: -moz-linear-gradient(left, green, yellow);
+        	background: -ms-linear-gradient(left, green, yellow);
+        	background: -o-linear-gradient(left, green, yellow);
+        	background: linear-gradient(left, green, yellow);*/
+
+        	/*水平偏移，垂直偏移，模糊程度，阴影大小，外/内侧阴影*/
+        	/*box-shadow:  15px 21px 48px -2px #666 inset;*/
+
+        	/* transition-property: width;
+        	transition-duration: 2s;
+        	transition-timing-function: linear;
+        	transition-delay: 0s; */
+        }
+        /* .box:hover {
+        	width: 500px;
+        	background-color: orange;
+        } */
+
+        .content {
+            width: 800px;
+            height: 320px;
+            padding-left: 20px;
+            margin: 80px auto;
+        }
+
+        .item {
+            width: 230px;
+            height: 300px;
+            text-align: center;
+            margin-right: 20px;
+            background-color: #fff;
+            float: left;
+            position: relative;
+            top: 0;
+            overflow: hidden;
+            transition: all .5s;
+        }
+        
+        .item img {
+            margin-top: 30px;
+            width: 230px;
+            height: 300px;
+        }
+
+        .item .desc {
+            position: absolute;
+            left: 0;
+            bottom: -80px;
+            width: 100%;
+            height: 80px;
+            background-color: #ff6700;
+            transition: all .5s;
+        }
+
+        .item:hover {
+            top: -5px;
+            box-shadow: 0 0 15px #AAA;
+        }
+
+        .item:hover .desc {
+            bottom: 0;
+        }
+
+        .box {
+            width: 1000px;
+            margin: 100px auto;
+        }
+
+        .box div {
+            width: 300px;
+            height: 150px;
+            border: 1px solid #000;
+            background-color: pink;
+            float: left;
+            margin-right: 30px;
+        }
+
+        div:nth-child(2) {
+            height: 300px;
+            background-color: red;
+            transition: all 1s;
+        }
+
+        div:nth-child(2):hover {
+            /* translate(x, y)表示水平，垂直位移，参数为%时，表示相对自身移动 */
+            transform: translate(-50%, -50%);
+            /* transform在css3中用于做变换的属性，scale(x,y)表示宽高缩放 */
+            transform: scale(2, 2);
+            /* rotate表示旋转 */
+            transform: rotate(-405deg);
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            /* background-color: #DE8910; */
+        }
+
+        .rocket {
+            position: absolute;
+            left: 250px;
+            top: 600px;
+            height: 120px;
+            transform: translate(-200px, 200px) rotate(45deg);
+            transition: all 1s ease-in;
+        }
+
+        body:hover .rocket {
+            transform: translate(500px, -500px) rotate(45deg);
+        }
+
+        .box {
+            width: 300px;
+            height: 440px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        img {
+            width: 100%;
+            transition: all 1.5s;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: center bottom; /*旋转时，以盒子底部的中心为坐标原点*/
+            box-shadow: 0 0 3px 0 #666;
+        }
+
+        .box:hover img:nth-child(1) {
+            transform: rotate(-60deg);
+        }
+
+        .box:hover img:nth-child(2) {
+            transform: rotate(-50deg);
+        }
+
+        .box:hover img:nth-child(3) {
+            transform: rotate(-40deg);
+        }
+
+        .box:hover img:nth-child(4) {
+            transform: rotate(-30deg);
+        }
+
+        .box:hover img:nth-child(5) {
+            transform: rotate(-20deg);
+        }
+
+        .box:hover img:nth-child(6) {
+            transform: rotate(-10deg);
+        }
+
+        .box:hover img:nth-child(8) {
+            transform: rotate(10deg);
+        }
+
+        .box:hover img:nth-child(9) {
+            transform: rotate(20deg);
+        }
+
+        .box:hover img:nth-child(10) {
+            transform: rotate(30deg);
+        }
+
+        .box:hover img:nth-child(11) {
+            transform: rotate(40deg);
+        }
+
+        .box:hover img:nth-child(12) {
+            transform: rotate(50deg);
+        }
+
+        .box:hover img:nth-child(13) {
+            transform: rotate(60deg);
+        }
+        @font-face {
+            font-family: 'webfont';
+            src: url('./font/webfont.eot'); /* IE9 */
+            src: url('./font/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+                url('./font/webfont.woff') format('woff'), /* chrome、firefox */
+                url('./font/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+                url('./font/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+        }
+
+        .web-font {
+            font-family: "webfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @font-face {
+            font-family: 'iconfont';
+            src: url('./icon/iconfont.eot');
+            src: url('./icon/iconfont.eot?#iefix') format('embedded-opentype'),
+                url('./icon/iconfont.woff2') format('woff2'),
+                url('./icon/iconfont.woff') format('woff'),
+                url('./icon/iconfont.ttf') format('truetype'),
+                url('./icon/iconfont.svg#iconfont') format('svg');
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            padding-right: 10px;
+            /* font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale; */
+        }
+
+        p {
+            width: 200px;
+            border: 1px solid #000;
+            line-height: 60px;
+            font-size: 30px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        .icon:before {
+            content: '\e615';
+            font-family: iconfont;
+            padding-right: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<!-- <div class="box"></div> -->
+
+<!-- transition使用 -->
+<!-- <div class="content">
+	<div class="item">
+        <img src="http://i1.mifile.cn/a4/xmad_15512365381648_yZpKS.jpg">   
+    </div>
+    <div class="item">
+        <img src="http://i1.mifile.cn/a4/xmad_15512365381648_yZpKS.jpg">
+        <span class="desc">洗衣机</span>
+    </div>
+    <div class="item">
+        <img src="http://i1.mifile.cn/a4/xmad_15512365381648_yZpKS.jpg">
+        <span class="desc">洗衣机</span>
+    </div>
+</div> -->
+
+<!-- <div class="box">
+    <div class="box1">1</div>
+    <div class="box2">2</div>
+    <div class="box3">3</div>
+</div> -->
+
+<!-- <img class="rocket" src="http://img.smyhvae.com/20180208-rocket.png" alt=""> -->
+
+<!-- <div class="box">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+</div> -->
+
+<i class="web-font">山有木兮木有枝，心悦君兮君不知</i>
+<p><span class="iconfont">&#xe615;</span>扫码付款</p>
+<p class="icon">扫码付款</p>
+
+</body>
+</html>

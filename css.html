@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+    /*v1.0 */
+    /*button {
+            margin: 10px;
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+        }
+        .current {
+            background-color: red;
+        }*/
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        width: 500px;
+        height: 200px;
+        border: 1px solid #ccc;
+        margin: 50px auto;
+        overflow: hidden;
+    }
+
+    ul {
+        width: 600px;
+        height: 40px;
+        margin-left: -1px;
+        list-style: none;
+    }
+
+    li {
+        float: left;
+        width: 101px;
+        height: 40px;
+        text-align: center;
+        font: 600 18px/40px "simsun";
+        background-color: pink;
+        cursor: pointer;
+    }
+
+    span {
+        display: none;
+        width: 500px;
+        height: 160px;
+        background-color: yellow;
+        text-align: center;
+        font: 700 100px/160px "simsun";
+    }
+
+    .show {
+        display: block;
+    }
+
+    .current {
+        background-color: yellow;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- v1.0 -->
+    <!-- <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+
+    <script type="text/javascript">
+        var btnArr = document.getElementsByTagName("button");
+        // 绑定事件
+        for(var i=0; i<btnArr.length;i++) {
+            btnArr[i].onmouseover = function() {
+                // 先把所有按钮的className设置为空
+                for(var j=0; j<btnArr.length;j++) {
+                    btnArr[j].className = "";
+                }
+                // 把当前选中的按钮className设置为current
+                this.className = "current";
+            }
+        }
+
+        // 鼠标离开current时，还原背景色
+        for(var i=0;i<btnArr.length;i++) {
+            btnArr[i].onmouseout = function() {
+                this.className = "";
+            }
+        }
+    </script> -->
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <script type="text/javascript">
+    window.onload = function() {
+
+        var boxArr = document.getElementsByClassName("box");
+
+        for (var i = 0; i < boxArr.length; i++) {
+            fn(boxArr[i]);
+        }
+
+        function fn(element) {
+            var liArr = element.getElementsByTagName("li");
+            var spanArr = element.getElementsByTagName("span");
+
+            for (var i = 0; i < liArr.length; i++) {
+                // 给每个li标签添加一个自定义属性，index索引
+                liArr[i].index = i;
+                liArr[i].onmouseover = function() {
+                    for (var j = 0; j < liArr.length; j++) {
+                        liArr[j].className = "";
+                        spanArr[j].className = "";
+                    }
+                    this.className = "current";
+                    spanArr[this.index].className = "show";
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

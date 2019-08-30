@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试css</title>
+</head>
+<style type="text/css">
+	.triangle {
+		width: 0;
+		height: 0;
+		/*border: 50px transparent solid;*/
+		border-top: 50px solid black;
+		border-right: 50px solid purple;
+	}
+
+	.triangle1 {
+		width: 0;
+		height: 0;
+		border: 50px transparent solid;
+		border-top-color: black;
+		border-bottom-color: black;
+	}
+
+	.wechat-triangle{
+        position: relative;
+        width: 150px;
+        height: 36px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background: rgba(245, 245, 245, 1);
+    }
+
+    /*.wechat-triangle:before{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 8px;
+        width: 0;
+        height: 0;
+        border: 6px transparent solid;
+        left: -12px;
+        border-right-color: rgba(245,245,245,1);
+    }*/
+
+    .wechat-triangle:before, .wechat-triangle:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 8px;
+        width: 0;
+        height: 0;
+        border: 6px transparent solid;
+    }
+
+    .wechat-triangle:before{
+        left: -11px;
+        border-right-color: rgba(245,245,245,1);
+        z-index: 1;
+    }
+
+    .wechat-triangle:after{
+        left: -12px;
+        border-right-color: rgba(0,0,0,1);
+        z-index: 0;
+    }
+
+    .wechat-triangle1{
+        width: 120px;
+        height: 30px;
+        position: relative;
+        border: 1px solid black;
+        border-radius: 5px;
+        background: rgba(245,245,245,1);
+    }
+
+    .wechat-triangle1:before, .wechat-triangle1:after{
+        content: "";
+        width: 0;
+        height: 0;
+        display: block;
+        position: absolute;
+        top: 5px;
+        border: 4px transparent solid;
+    }
+
+    .wechat-triangle1:before{
+        left: -8px;
+        border-right-color: rgba(245,245,245,1);
+        z-index: 1;
+    }
+
+    .wechat-triangle1:after{
+        left: -9px;
+        border-right-color: rgba(0,0,0,1);
+        z-index: 0;
+    }
+
+    .tip{
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        position: relative;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .tip:before, .tip:after{
+        position: absolute;
+        opacity: 0;
+    }
+
+    .tip:before{
+        content: '';
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-color: #222 transparent transparent transparent;
+        top: -6px;
+    }
+
+    .tip:after{
+        content: attr(data-tips);
+        white-space: nowrap;
+        font-size: 14px;
+        color: #fff;
+        background-color: #222;
+        top: -36px;
+        left: 5px;
+        border-radius: 6px;
+        padding: 0 10px;
+        text-shadow: 0 0 5px #000;
+        -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        -moz-box-sizing: boder-box;
+        -webkit-box-sizing: boder-box;
+        box-sizing: boder-box;
+    }            
+
+    .tip:hover:before, .tip:hover:after{
+        opacity: 1;
+    }
+
+    .content {
+    	background-color: red;
+    }
+
+    .content:after {
+    	content: '';
+    	display: block;
+    	clear: both;
+    }
+
+    .float-left {
+    	width: 100px;
+    	height: 100px;
+    	background-color: #eee;
+    	margin: 0 10px;
+    	float: left;
+    }
+
+    .left, .right {
+    	min-height: 40px;
+    	position: relative;
+    	display: table;
+    	text-align: center;
+    	border-radius: 7px;
+    	background-color: #9EEA6A;
+    	border: 1px solid #736262;
+    }
+
+    /*左右对话框分开*/
+    .right {
+    	top: 40px;
+    	left: 60px;
+    }
+
+    /*内容居中*/
+    .left>p,.right>p {
+    	display: table-cell;
+    	vertical-align: middle;
+    	padding: 0 10px;
+    }
+
+    /*用伪类写出小三角形*/
+    .left:before,.left:after,.right:before,.right:after {
+    	content: '';
+    	display: block;
+    	width: 0;
+    	height: 0;
+    	border:8px solid transparent;
+    	position: absolute;
+    	top: 11px;
+    }
+
+    /*分别给左右两边的小三角形定位*/
+    .left:before {
+    	border-right: 8px solid #9EEA6A;
+    	left: -16px;
+    }
+
+    /*左边对话框小三角形的边框样式*/
+    .left:after {
+    	border-right: 8px solid #736262;
+    	left: -17px;
+    	z-index: -1;
+    }
+
+	/*分别给左右两边的小三角形定位*/
+    .right:after {
+    	border-left: 8px solid #9EEA6A;
+    	right:-16px;
+    }
+
+    /*右边对话框小三角形的边框样式*/
+    .right:before {
+    	border-left: 8px solid #736262;
+    	right: -17px;
+    	z-index: -1;
+    }
+
+    .blockquote:before {
+    	content: open-quote;
+    }
+
+    .blockquote:after {
+    	content: close-quote;
+    }
+</style>
+<body>
+	<div class="triangle"></div>
+	<div class="triangle1"></div>
+
+	<div class="wechat-triangle"></div>
+    <div class="wechat-triangle1"></div>
+
+    <div class="tip" data-tips="沉冤得雪魂归战场">琅琊榜</div>
+
+    <div class="content">
+    	<div class="float-left">aaa</div>
+    	<div class="float-left">bbb</div>
+    	<div class="float-left">ccc</div>
+    	<div class="block-box"></div>
+    </div>
+
+    <div class="left">
+    	<p>吃了吗</p>
+    </div>
+    <div class="right">
+    	<p>吃过了，吃了红烧排骨和酸菜鱼</p>
+    </div>
+
+    <div class="blockquote">
+    	这是一句引用~
+    </div>
+</body>
+</html>

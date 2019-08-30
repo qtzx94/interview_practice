@@ -1,103 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>Document</title>
 </head>
+
 <body>
-<div class="container">
-    <p></p>
-</div>
-<div class="container">
-    <p></p>
-</div>
-<div class="border">
-    <div class="box">1111</div>
-</div>
-<!-- BFC 可以阻止元素被浮动元素覆盖 -->
-<div style="height: 100px;width: 100px;float: left;background: lightblue;color: red; opacity: 0.5;">我是一个左浮动的元素</div>
-<div style="width: 200px; height: 200px;background: #eee; overflow: hidden;">我是一个没有设置浮动, 也没有触发 BFC 元素, width: 200px; height:200px; background: #eee;</div>
-<div id="box">双倍间距</div>
-<input type="text" value="Name *" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Name *';}">
-<div class="clearfix">
-    <div class="fl"></div>
-    <div class="fr"></div>
-</div>
- <!--[if IE 8]> ie8 <![endif]-->
- 
- <!--[if IE 9]> 骚气的 ie9 浏览器 <![endif]-->
-<script>
-    console.log(document.documentElement.scrollTop || document.body.scrollTop);
-</script>
-<style>
-    /* 同一个BFC下 外边距会发生折叠 */
-    .container {
-        overflow: hidden;
-    }
+    <div class="container">
+        <p></p>
+    </div>
+    <div class="container">
+        <p></p>
+    </div>
+    <div class="border">
+        <div class="box">1111</div>
+    </div>
+    <!-- BFC 可以阻止元素被浮动元素覆盖 -->
+    <div style="height: 100px;width: 100px;float: left;background: lightblue;color: red; opacity: 0.5;">我是一个左浮动的元素</div>
+    <div style="width: 200px; height: 200px;background: #eee; overflow: hidden;">我是一个没有设置浮动, 也没有触发 BFC 元素, width: 200px;
+        height:200px; background: #eee;</div>
+    <div id="box">双倍间距</div>
+    <input type="text" value="Name *" onFocus="this.value = '';"
+        onBlur="if (this.value == '') {this.value = 'Name *';}">
+    <div class="clearfix">
+        <div class="fl"></div>
+        <div class="fr"></div>
+    </div>
+    <!--[if IE 8]> ie8 <![endif]-->
 
-    p {
-        width: 100px;
-        height: 100px;
-        background: lightblue;
-        margin: 100px;
-    }
+    <!--[if IE 9]> 骚气的 ie9 浏览器 <![endif]-->
+    <script>
+        console.log(document.documentElement.scrollTop || document.body.scrollTop);
+    </script>
+    <style>
+        /* 同一个BFC下 外边距会发生折叠 */
+        .container {
+            overflow: hidden;
+        }
 
-    /* BFC 可以包含浮动的元素（清除浮动） */
-    .border {
-        border: 1px solid #000;
-        overflow: hidden;
-    }
+        p {
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            margin: 100px;
+        }
 
-    .box {
-        width: 100px;
-        height: 100px;
-        background: #eee;
-        float: left;
-        color: rgb(255,100,97);
-        /* opacity: 0.5;  ie9以下不兼容 */  
-        filter: alpha(opacity = 50);
-        /* IE4-IE9都支持滤镜写法progid:DXImageTransform.Microsoft.Alpha(Opacity=xx) */
-        filter: progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 50); 
+        /* BFC 可以包含浮动的元素（清除浮动） */
+        .border {
+            border: 1px solid #000;
+            overflow: hidden;
+        }
 
-    }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #eee;
+            float: left;
+            color: rgb(255, 100, 97);
+            /* opacity: 0.5;  ie9以下不兼容 */
+            filter: alpha(opacity=50);
+            /* IE4-IE9都支持滤镜写法progid:DXImageTransform.Microsoft.Alpha(Opacity=xx) */
+            filter: progid:DXImageTransform.Microsoft.Alpha(style=0, opacity=50);
 
-    .fl {
-        float: left;
-        width: 100px;
-        height: 100px;
-        background: yellow;
-    }
+        }
 
-    .fr {
-        float: right;
-        width: 100px;
-        height: 100px;
-        background: purple;
-    }
+        .fl {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: yellow;
+        }
 
-    /* 清除浮动 */
-    .clearfix {
-        border: 1px solid red;
-        zoom: 1;
-    }
+        .fr {
+            float: right;
+            width: 100px;
+            height: 100px;
+            background: purple;
+        }
 
-    .clearfix:after {
-        display: block;
-        clear: both;
-        content: "";
-        visibility: hidden;
-        height: 0;
-    }
+        /* 清除浮动 */
+        .clearfix {
+            border: 1px solid red;
+            zoom: 1;
+        }
 
-    #box {
-        float: left;
-        margin: 10px;
-        border: 1px dotted red;
-        display: inline;
-        transform:rotate(7deg);
-        user-select: none;
-    }
-</style>
+        .clearfix:after {
+            display: block;
+            clear: both;
+            content: "";
+            visibility: hidden;
+            height: 0;
+        }
+
+        #box {
+            float: left;
+            margin: 10px;
+            border: 1px dotted red;
+            display: inline;
+            transform: rotate(7deg);
+            user-select: none;
+        }
+    </style>
 </body>
+
 </html>
