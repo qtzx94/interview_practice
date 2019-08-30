@@ -1,0 +1,29 @@
+<!-- 金三银四的魔都两年半前端面经 - https://zhuanlan.zhihu.com/p/62923353 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        1.三次握手和四次挥手详细介绍
+        2.TCP有哪些手段保证可靠交付
+            1).确认和重传：接收方收到报文就会确认，发送方发送一段时间后没有收到确认就重传
+            2).数据校验
+            3).数据合理分片和排序:
+                    UDP: IP数据报大于1500字节,大于MTU(最大传输单元 Maximum Transmission Unit).这个时候发送方IP层就需要分片(fragmentation).把数据报分成若干片,使每一片都小于MTU.
+                         而接收方IP层则需要进行数据报的重组.这样就会多做许多事情,而更严重的是,由于UDP的特性,当某一片数据传送中丢失时,接收方便 无法重组数据报.将导致丢弃整个UDP数据报.
+                    TCP：会按MTU合理分片，接收方会缓存未按序到达的数据，重新排序后再交给应用层
+            4).流量控制：当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失
+            5).拥塞控制：当网络拥塞时，减少数据的发送
+        3.URL从输入到页面渲染全流程
+        4.如何预防中间人攻击
+        5.DNS解析会出错吗，为什么
+        6.ES6的Set内部实现
+        7.如何防止页面劫持 
+    -->
+</body>
+</html>

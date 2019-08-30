@@ -1,54 +1,52 @@
-function fn(resolve) {
-    setTimeout(function() {
-        resolve(123);
-    }, 3000);
+/**
+ * Promise，是一种容器，里面保存着某个未来才会结束的事情（通常是一个异步操作），从语法上，Promise是一个对象，可以用以获取异步操作的消息
+ * 优点： 
+ * 1.一旦状态改变，就不会再变，任何时候都可以得到这个结果
+ * 2.可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数
+ * 
+ * 缺点：
+ * 1.无法取消Promise
+ * 2.当处于pending状态时，无法得知目前进展到哪一阶段
+ * 3.错误不能被try catch
+ */
+const promise = new Promise(function(resolve, reject) {
+    if(success) {
+        resolve(value);
+    }else {
+        reject(value);
+    }
+});
+
+promise.then(function(value) {
+    // success
+}, function(error) {
+    // failure
+})
+
+function timeout(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms, 'done');
+    });
 }
 
-let p0 = new Promise(fn);
-// let p1 = Promise.resolve(p0);
-// console.log(p0 === p1);
-let p1 = Promise.resolve(123);
-// console.log(p1);
+timeout(5000).then((value) => {
+    console.log(value);
+})
 
+let promise = new Promise(function(resolve, reject) {
+    console.log('Promise');
+    resolve();
+});
 
-// const promise = new Promise(function(resolve, reject) {
-//     if(success) {
-//         resolve(value);
-//     }else {
-//         reject(value);
-//     }
-// });
+promise.then(function() {
+    console.log('resolved.');
+});
 
-// promise.then(function(value) {
-//     // success
-// }, function(error) {
-//     // failure
-// })
+console.log('Hi');
 
-// function timeout(ms) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(resolve, ms, 'done');
-//     });
-// }
-
-// timeout(5000).then((value) => {
-//     console.log(value);
-// })
-
-// let promise = new Promise(function(resolve, reject) {
-//     console.log('Promise');
-//     resolve();
-// });
-
-// promise.then(function() {
-//     console.log('resolved.');
-// });
-
-// console.log('Hi');
-
-// // Promise
-// // Hi
-// // resolved.
+// Promise
+// Hi
+// resolved.
 
 
 // 图片加载的异步操作
