@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lazyload img</title>
+</head>
+<body>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+    <section>
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg1.jpg" alt="bg1.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg2.jpg" alt="bg2.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg3.jpg" alt="bg3.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg4.jpg" alt="bg4.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg5.jpg" alt="bg5.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg6.jpg" alt="bg6.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg7.jpg" alt="bg7.jpg">
+        <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./bg8.jpg" alt="bg8.jpg">
+    </section>
+    <script>
+        // 简单的节流函数
+        function throttle(func, wait, mustRun) {
+            var timeout,
+                startTime = new Date();
+
+            return function() {
+                var context = this,
+                    args = arguments,
+                    curTime = new Date();
+
+                clearTimeout(timeout);
+                // 如果达到了规定的触发时间间隔，触发 handler
+                if(curTime - startTime >= mustRun){
+                    func.apply(context,args);
+                    startTime = curTime;
+                // 没达到触发间隔，重新设定定时器
+                }else{
+                    timeout = setTimeout(func, wait);
+                }
+            };
+        };
+
+        // 判断元素是否在可视范围内
+        function elementInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (rect.top >= 0 && rect.left >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight));
+        }
+
+        function lazyLoadImgs() {
+            var count = 0;
+            return function() {
+                [].slice.call(images, count).forEach(image => {
+                    if(elementInViewport(image)) {
+                        image.setAttribute('src', image.getAttribute('data-src'));
+                        count++;
+                        console.log(`加载完成第${count}张图片`);
+                    }
+                });
+            }
+        }
+
+        const images = document.getElementsByTagName('img');
+        // 采用了节流函数, 加载图片
+        window.addEventListener('scroll',throttle(lazyLoadImgs(images),500,1000));
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #img-list {
+            border: 1px solid black;
+            overflow-x: hidden;
+        }
+
+        #img {
+
+        }
+
+    </style>
+    <div id="img-list">
+        <img id="img" src="./bg1.jpg" alt="bg1.jpg">
+        <!-- <img src="./bg2.jpg" alt="bg2.jpg">
+        <img src="./bg3.jpg" alt="bg3.jpg">
+        <img src="./bg4.jpg" alt="bg4.jpg">
+        <img src="./bg5.jpg" alt="bg5.jpg">
+        <img src="./bg6.jpg" alt="bg6.jpg">
+        <img src="./bg7.jpg" alt="bg7.jpg">
+        <img src="./bg8.jpg" alt="bg8.jpg"> -->
+    </div>
+    <script>
+        var imgList = document.querySelector('#img-list');
+        var img = document.querySelector('#img');
+        var imgListScrollHeight = imgList.scrollHeight,
+            imgScrollHeight = img.offsetHeight;
+        console.log(`scrollHeight: ${imgScrollHeight}`);
+    </script>
+</body>
+</html>

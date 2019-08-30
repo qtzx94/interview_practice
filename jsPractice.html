@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Iron Man</title>
+	<link rel="shortcut icon" href="./ironman_favicon.ico">
+</head>
+<body>
+	<script type="text/javascript">
+		// Object类型
+		// Array类型
+		// var color = ['red', 'yellow', 'blue', 'purple', 'green'];
+		// console.log(color.shift());	
+		// console.log(color.unshift('white','black'));
+		// console.log(color.join(undefined));
+		// console.log(color);
+
+
+		// function compare(value1, value2) {
+		// 	if(value1 < value2) {
+		// 		return -1;
+		// 	}else if(value1 > value2) {
+		// 		return 1;
+		// 	}else {
+		// 		return 0;
+		// 	}
+		// }
+
+		// var values = [0, 1, 5, 10, 15];
+		// values.sort(compare);
+		// console.log(values);
+
+		// var values = [0, 1, 5, 10, 15];
+		// var value2 = values.splice(0,2);
+		// console.log(value2);
+		// console.log(values)
+		// var value3 = values.splice(2,0,'hello', 'world')
+		// console.log(values)
+		// var value4 = values.splice(2,1,'qtzx','bux');
+		// console.log(values)
+
+		// console.log(values.indexOf('qtzx'));
+
+		// 数组的5种迭代方法 
+		// every()
+		// some()
+		// filter()
+		// forEach()
+		// map()
+
+		// var numbers = [1,2,3,4,5,4,3,2,1];
+
+		// var everyResult = numbers.every(function(item, index, array) {
+		// 	return (item > 2);
+		// })
+		// console.log(everyResult);
+
+		// var someResult = numbers.some(function(item, index, array) {
+		// 	return (item > 2);
+		// })
+		// console.log(someResult);
+
+		// var filterResult = numbers.filter(function(item, index, array) {
+		// 	return (item > 2);
+		// })
+		// console.log(filterResult);
+
+		// var mapResult = numbers.map(function(item, index, array) {
+		// 	return item * 2;
+		// })
+		// console.log(mapResult);
+
+		// var forEachResult = numbers.forEach(function(item, index, array) {
+		// 	// console.log(item + 2);
+		// })
+
+		// var value = [1,2,3,4,5];
+		// // 4个参数：前一个值、当前值、项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数就是数组的第二项。
+		// var sum = value.reduce(function(prev, cur, index, array) {
+		// 	return prev + cur;
+		// })
+		// // 第一次执行回调函数，prev是1，cur是2;第二次执行，prev是3（1+2），cur是3;第三次执行，prev是6（3+3），cur是4；第四次执行，prev是10（6+4),cur是5；
+		// console.log(sum); // 15
+
+		// // reduceRight()从数组的最后一项开始，向前遍历到第一项。
+		// var sum = value.reduceRight(function(prev, cur, index, array) {
+		// 	return pre + cur;
+		// })
+		// console.log(sum);
+
+		// var now = new Date();
+		// console.log(now)
+		// console.log(now.getFullYear())
+
+		// RegExp类型
+		// var pattern = new RegExp("[bc]at", "i");
+		// console.log(pattern)
+
+
+		// var re = null,
+		// 	i;
+
+		// for (i = 0; i < 10; i++) {
+		// 	re = /cat/g;
+		// 	re.test("catastrophe");
+		// }
+
+		// for (i = 0; i < 10; i++) {
+		// 	re = new RegExp("cat", "i");
+		// 	re.test("catastrophe");
+		// }
+
+		// console.log(sum(10, 10));
+		// // 函数声明式写法
+		// function sum(num1, num2) {
+		// 	return num1 + num2;
+		// }
+		// // 函数表达式写法
+		// var sum = function(num1, num2) {
+		// 	return num1 + num2;
+		// }
+
+		// function factorial(num) {
+		// 	if(num <= 1) {
+		// 		return 1;
+		// 	}else {
+		// 		// return num * factorial(num - 1);
+		// 		return num * arguments.callee(num - 1); // arguments.callee指向拥有这个arguments对象的函数,使用arguments.callee使得函数的执行与函数名 factorial 解耦
+		// 	}
+		// }
+		// console.log(factorial(10));
+
+		// function outer() {
+		// 	// inner();
+		// }
+
+		// function inner() {
+		// 	// caller属性保存着调用当前函数的函数的引用，如果是在全局作用域中调用当前函数，它的值为 null。
+		// 	console.log(inner.caller);
+		// }
+
+		// inner();
+
+		// outer();
+
+		// apply()和 call()。这两个方法的用途都是在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。首先， apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是 Array 的实例，也可以是arguments 对象。
+		// function sum(num1, num2) {
+		// 	return num1 + num2;
+		// }
+
+		// function callSum1(num1, num2) {
+		// 	return sum.apply(this, arguments);
+		// }
+
+		// function callSum2(num1, num2) {
+		// 	return sum.apply(this, [num1, num2]);
+		// }
+
+		// function callSum3(num1, num2) {
+		// 	return sum.call(this, num1, num2);
+		// }
+
+		// console.log(callSum1(10, 10));
+		// console.log(callSum2(10, 10));
+		// console.log(callSum3(10, 10));
+
+		// var booleanObj = new Boolean(false);
+		// console.log(typeof booleanObj);
+		// // instanceof用于检测booleanObj是不是Boolean的实例。
+		// console.log(booleanObj instanceof Boolean);
+
+		// var boolean = false;
+		// console.log(typeof boolean);
+
+		// var stringValue = "hello";
+		// var result = stringValue.concat(" world");
+		// // console.log(result);
+		// console.log(result.charAt('4'));
+
+
+		// String 对象
+		// slice()
+		// substr()
+		// substring()
+		// 都会返回被操作字符串的一个子字符串，都可以接受一或两个参数，第一个参数指定字符串开始的位置，第二个参数表示字符串截止位置或者是截取字符串长度
+
+		// var stringValue = "hello world";
+		// console.log(stringValue.slice(3));// "lo world" 返回一个从index=3开始到最后的子字符串
+		// console.log(stringValue.substring(3));// "lo world" 返回一个从index=3开始到最后的子字符串
+		// console.log(stringValue.substr(3));// "lo world" 返回一个从index=3开始到最后的子字符串
+		// console.log(stringValue.slice(3, 7));// "lo w" 返回一个从index=3开始到index=7结束（不包括7）的子字符串
+		// console.log(stringValue.substring(3, 7));// "lo w" 返回一个从index=3开始到index=7结束（不包括7）的子字符串
+		// console.log(stringValue.substr(3, 7));// "lo worl" 返回一个从index=3开始长度为7的子字符串
+
+		// // 传递的参数为负值时：
+		// // slice()将传递过来的两个负值与字符串长度相加
+		// // substr()将第一个负值与字符串长度相加，第二个负值置0
+		// // substring()将两个负值都置0
+
+		// console.log(stringValue.slice(-3)); // => slice((-3)+11) "rld"
+		// console.log(stringValue.substr(-3)); // => substr((-3)+11) "rld"
+		// console.log(stringValue.substring(-3)); // => substring(0) "hello world"
+		// console.log(stringValue.slice(3, -4)); // => slice(3, (-4)+11) "lo w"
+		// console.log(stringValue.substr(3, -4)); // => substr(3, 0) ""（空字符串）
+		// console.log(stringValue.substring(3, -4)); // = substring(0, 3) "hel" (如果转化后的第一个参数比第二个参数大，那么该方法在提取子串之前会先交换这两个参数。)
+
+
+		// var colorText = "red, blue, green, yellow";
+		// var color1 = colorText.split(",");
+		// var color2 = colorText.split(",", 2);
+		// console.log(color1);
+		// console.log(color2);
+
+		// eval("alert('hi')");
+
+
+		// var value = [1,2,3,4,5,6,7,8];
+		// var max = Math.max.apply(Math, value);
+		// console.log(max);
+
+		// console.log(Math.ceil(24.3));
+		// console.log(Math.floor(24.3));
+		// console.log(Math.round(24.3));
+
+		// var num = Math.floor(Math.random() * 10 + 1);
+		// console.log(num);
+
+		// 一、工厂模式
+		// function createPerson(name, age, job) {
+		// 	var o = new Object();
+		// 	o.name = name;
+		// 	o.age = age;
+		// 	o.job = job;
+		// 	o.sayName = function() {
+		// 		alert(this.name);
+		// 	};
+		// 	return o;
+		// }
+
+		// var person1 = createPerson("Nicholas", 29, "Software Engineer");
+		// var person2 = createPerson("Greg", 27, "Doctor");
+        // console.log(person1, person2);
+
+        // 二、构造函数模式
+        // function Person(name, age, job) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.job = job;
+        //     this.sayName = function() {
+        //         alert(this.name);
+        //     };
+        // }
+
+        // // 1.作为构造函数调用
+        // var person1 = new Person("Nicholas", 29, "Software Engineer");
+        // var person2 = new Person("Greg", 27, "Doctor");
+        // person1.sayName();
+
+        // // 2.作为普通函数调用
+        // Person("Greg", 27, "Doctor");
+        // window.sayName();
+
+        // // 3.在另一个对象的作用域中调用
+        // var obj = new Object();
+        // Person.call(obj, "Kristen", 25, "actress");
+        // obj.sayName();
+
+        // 三、原型模式
+        // function Person() {}
+
+        // Person.prototype.name = "Nicholas";
+        // Person.prototype.age = 29;
+        // Person.prototype.job = "Software Engineer";
+        // Person.prototype.sayName = function() {
+        //     alert(this.name);
+        // };
+
+        // var person1 = new Person();
+        // person1.sayName();
+        // console.log(person1);
+        // var person2 = new Person();
+        // person2.sayName();
+
+        // alert(person1.sayName == person2.sayName);
+
+        // function functionName(arg0, arg1, arg2) {
+
+        // }
+        // console.log(functionName);
+        // alert(functionName.name);
+
+        // confirm("Are you sure?");
+        // alert("Are you sure?");
+        // prompt("Are you sure?");
+
+        // if(confirm("Are you sure?")) {
+        //     alert("I'm so glad you're sure!");
+        // }else {
+        //     alert("I'm sorry to hear you're not sure.");
+        // }
+
+        // var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
+        // var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
+        // console.log(leftPos, topPos);
+
+        // window.moveTo(300, 300);
+        // console.log(window);
+
+        // console.log(window.innerWidth, window.innerHeight);
+        // console.log(window.outerWidth, window.outerHeight);
+        // console.log(document.documentElement.clientWidth, document.documentElement.clientHeight);
+
+        // window.resizeTo(100, 100);
+        // window.open('http://www.baidu.com', '_blank');
+        // window.close();
+
+        // var timeoutId = setTimeout(function() {
+        //     alert('hello world!');
+        // }, 1000);
+
+        // clearTimeout(timeoutId);
+
+        // setInterval(function() {
+        //     alert('hello world');
+        // }, 1000);
+
+
+        // var num = 0;
+        // var max = 10;
+        // var inervalId = null;
+
+        // function incrementNumber() {
+        //     console.log(num);
+        //     num++;
+
+        //     if(num == max) {
+        //         clearInterval(intervalId);
+        //         alert("Done");
+        //     }
+        // }
+
+        // intervalId = setInterval(incrementNumber, 500);
+
+        // prompt("what's you name?", "Michael");
+
+        // console.log(window.location);
+
+        // setTimeout(function() {
+        //     location.replace("https://www.baidu.com");
+        // }, 1000);
+
+        // var url = document.URL;
+
+        // console.log(url);
+
+        // for(var i = 0; i <10; i++) {
+        //     console.log("循环体中：" + i);
+        // }
+
+        // console.log("循环体外：" + i);
+
+        // var name = 'qtzx';
+        // var age = 25;
+        // console.log('name:' + name + ',age:' + age); // 传统写法
+        // console.log(`name:${name},age:${age}`); //es6写法
+
+        // var fn2 = (a, b) => a + b;
+        // console.log(fn2(1, 2));
+
+        // var originalTitle = document.title;
+        // console.log(originalTitle);
+
+        // document.title = "Iron Man";
+
+		// document.write("<strong>" + (new Date()).toString() + "</strong>");
+		
+		// function runAsync() {
+		// 	var p = new Promise(function(resolve, reject) {
+		// 		setTimeout(function() {
+		// 			console.log('执行完成');
+		// 			resolve('随便输出点什么');
+		// 		}, 2000);
+		// 	});
+
+		// 	return p;
+		// }
+
+		// // runAsync();
+		// runAsync().then(function(data) {
+		// 	console.log(data);
+		// })
+
+		function getNumber() {
+			var p = new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					var num = Math.ceil(Math.random()*10);
+					if(num <= 5) {
+						resolve(num);
+					}
+					reject('数字太大了');
+				}, 2000);
+			});
+
+			return p;
+		}
+
+		getNumber().then(function(data) {
+			console.log('resolve');
+			console.log(data);
+		}, function(reason, data) {
+			console.log('reject');
+			console.log(reason);
+		});
+		
+
+        
+    </script>
+    
+    <!-- <p>The current date and time is:</p> -->
+
+    <!-- <table border="2" width="100%">
+        <tbody>
+            <tr>
+                <td>Cell 1, 1</td>
+                <td>Cell 2, 1</td>
+            </tr>
+            <tr>
+                <td>Cell 1, 2</td>
+                <td>Cell 2, 2</td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <input type="botton" value="Click Me" onclick="alert('Clicked')" />
+    
+</body>
+</html>
