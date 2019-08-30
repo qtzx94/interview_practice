@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6</title>
+</head>
+<body>
+    <input type="file" onchange="showProview(this)">
+    <img id="imgSrc" src="" alt="">
+    <div class="triangle"></div>
+    <style>
+        .triangle {
+            width: 0;
+            height: 0;
+            border-top: 40px solid yellow;
+            border-left: 40px solid plum;
+            border-right: 40px solid greenyellow;
+            border-bottom: 40px solid #ff0000;
+        }
+    </style>
+    <script>
+        function showProview(source) {
+            var file = source.files[0];
+            if(window.FileReader) {
+                var fr = new FileReader();
+                fr.onloadend = function(e) {
+                    document.getElementById('imgSrc').src = e.target.result;
+                };
+
+                fr.readAsDataURL(file);
+            }
+        }
+        // 1.组合继承，核心是在子类的构造函数中通过 Parent.call(this) 继承父类的属性，然后改变子类的原型为 new Parent() 来继承父类的函数
+        // 优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类函数的时候调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费
+
+        // function Parent(value) {
+        //     this.val = value;
+        // }
+
+        // Parent.prototype.getValue = function() {
+        //     console.log(this.val);
+        // }
+
+        // function Child(value) {
+        //     Parent.call(this, value);
+        // }
+
+        // Child.prototype = new Parent();
+
+        // const child = new Child(1);
+
+        // child.getValue();
+        // console.log(child instanceof Parent);
+
+        // 2.寄生组合继承
+        // 核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
+
+        // function Parent(value) {
+        //     this.val = value;
+        // }
+
+        // Parent.prototype.getValue = function() {
+        //     console.log(this.val);
+        // }
+
+        // function Child(value) {
+        //     Parent.call(this, value);
+        // }
+
+        // Child.prototype = Object.create(Parent.prototype, {
+        //     constructor: {
+        //         value: Child,
+        //         enumerable: false,
+        //         writable: true,
+        //         configurable: true
+        //     }
+        // })
+
+        // const child = new Child(1);
+
+        // child.getValue();
+
+        // console.log(child instanceof Parent);
+
+        // 3.Class继承
+        // class 实现继承的核心在于使用 extends 表明继承自哪个父类，并且在子类构造函数中必须调用 super，因为这段代码可以看成 Parent.call(this, value)。
+        // class Parent {
+        //     conctructor(value) {
+        //         this.val = value;
+        //     }
+        //     getValue() {
+        //         console.log(this.val);
+        //     }
+        // }
+
+        // class Child extends Parent {
+        //     constructor(value) {
+        //         super(value);
+        //         this.val = value;
+        //     }
+        // }
+
+        // let child = new Child(1);
+        // child.getValue();
+        // console.log(child instanceof Parent);
+
+        // const arr = [1, 2, 3];
+        // const sum = arr.reduce((acc, current) => acc + current, 0);
+        // console.log(sum);
+
+        // const mapArray = arr.map(value => value * 2);
+        // const reduceArray = arr.reduce((acc, current) => {
+        //     acc.push(current*2);
+        //     return acc;
+        // }, []);
+
+        // console.log(mapArray, reduceArray);
+
+        // 首先 Generator 函数调用和普通函数不同，它会返回一个迭代器
+        // 当执行第一次 next 时，传参会被忽略，并且函数暂停在 yield (x + 1) 处，所以返回 5 + 1 = 6
+        // 当执行第二次 next 时，传入的参数等于上一个 yield 的返回值，如果你不传参，yield 永远返回 undefined。此时 let y = 2 * 12，所以第二个 yield 等于 2 * 12 / 3 = 8
+        // 当执行第三次 next 时，传入的参数会传递给 z，所以 z = 13, x = 5, y = 24，相加等于 42
+        // function *foo(x) {
+        //     let y = 2 * (yield(x + 1));
+        //     let z = yield(y / 3);
+        //     return (x + y + z);
+        // }
+
+        // let it = foo(5);
+        // console.log(it.next());
+        // console.log(it.next(12));
+        // console.log(it.next(13));
+
+        // async function test() {
+        //     return "1";
+        // }
+
+        // console.log(test());
+
+        // let wake = (time) => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             resolve(`${time / 1000}秒后醒来`)
+        //         }, time)
+        //     })
+        // }
+
+        // let p1 = wake(3000);
+        // let p2 = wake(2000);
+
+        // Promise.all([p1, p2]).then((result) => {
+        //     console.log(result);
+        // }).catch((error) => {
+        //     console.log(error);
+        // })
+
+        // ES6新特性：
+        //     1.新增了块级作用域（let，const）
+        //     2.提供了定义类的语法糖（class）
+        //     3.新增了一种数据结构（Symbol）
+        //     4.新增了变量的解构赋值
+        //     5.函数参数允许设置默认值，引入了rest参数，新增了箭头函数
+        //     6.数组新增了一些API，如isArray/from/of 方法；数组实例新增了entries()，keys()和values()等方法
+        //     7.对象和数组新增了扩展运算符
+        //     8.ES6新增了模块化（import/export）
+        //     9.ES6新增了Set和Map数据结构
+        //     10.ES6原生提供Proxy构造函数，用来生成Proxy实例
+        //     11.ES6新增了生成器（Generator）和遍历器（Iterator）
+    </script>
+</body>
+</html>

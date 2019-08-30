@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>debounce/throttle</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div>防抖demo演示1</div>
+    <div>防抖demo演示2</div>
+    <div>防抖demo演示3</div>
+    <div>防抖demo演示4</div>
+    <div>防抖demo演示5</div>
+    <div>防抖demo演示6</div>
+    <div>防抖demo演示7</div>
+    <div>防抖demo演示8</div>
+    <div>防抖demo演示9</div>
+    <div>防抖demo演示10</div>
+    <div>防抖demo演示11</div>
+    <div>防抖demo演示12</div>
+    <div>防抖demo演示13</div>
+    <div>防抖demo演示14</div>
+    <div>防抖demo演示15</div>
+    <script>
+        // 防抖: n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间
+        // 应用场景：
+        // 每次resize/scroll触发高频事件
+        // 文本输入的验证（连续输入文字后发送AJAX进行请求验证，验证一次就好）
+        // function debounce(fn, wait) {
+        //     let timeout = null;
+        //     return function() {
+        //         if(timeout !== null) {
+        //             clearTimeout(timeout);
+        //         }
+        //         timeout = setTimeout(fn, wait);
+        //     }
+        // }
+
+        // function handle() {
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('scroll', debounce(handle, 1000));
+
+        // 节流（时间戳写法）:高频事件在规定时间内只会执行一次，执行一次后，只有大于设定的执行周期后才会执行第二次
+        // 应用场景： 
+        // DOM 元素的拖拽功能实现（mousemove）
+        // 射击游戏的 mousedown/keydown 事件（单位时间只能发射一颗子弹）
+        // 计算鼠标移动的距离（mousemove）
+        // Canvas 模拟画板功能（mousemove）
+        // 搜索联想（keyup）
+        // 监听滚动事件判断是否到页面底部自动加载更多：给 scroll 加了 debounce 后，只有用户停止滚动后，才会判断是否到了页面底部；如果是 throttle 的话，只要页面滚动就会间隔一段时间判断一次
+        // function throttle(func, delay) {
+        //     let prev = Date.now();
+        //     return function() {
+        //         let context = this;
+        //         let args = arguments;
+        //         let now = Date.now();
+        //         if(now - prev >= delay) {
+        //             func.apply(context, args);
+        //             prev = Date.now();
+        //         }
+        //     }
+        // }
+
+        // function handle() {
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('scroll', throttle(handle, 1000));
+
+        // 节流（定时器写法）
+        // function throttle(func, delay) {
+        //     let timer = null;
+        //     return function() {
+        //         let context = this;
+        //         let args = arguments;
+        //         if(!timer) {
+        //             timer = setTimeout(function() {
+        //                 func.apply(context, args);
+        //                 timer = null;
+        //             }, delay);
+        //         }
+        //     }
+        // }
+
+        // function handle() {
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('scroll', throttle(handle, 1000));
+
+        // 手写深拷贝
+        function deepCopy(obj) {
+            // 判断是否为简单数据类型
+            if(typeof obj === "object") {
+                // 复杂数据类型
+                let result = obj.constructor === Array ? [] : {};
+                for(let i in obj) {
+                    result[i] = typeof obj[i] === "object" ? deepCopy(obj[i]) : obj[i];
+                }
+            }else {
+                // 简单数据类型直接赋值
+                let result = obj;
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>

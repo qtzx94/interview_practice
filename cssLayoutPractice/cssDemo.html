@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>cssDemo</title>
+</head>
+
+<body>
+    <div class="ul-container">
+        <ul>
+            <li>测试</li>
+            <li>消失</li>
+            <li>边界线</li>
+            <li>测试</li>
+            <li>消失</li>
+            <li>边界线</li>
+            <li>测试</li>
+        </ul>
+    </div>
+
+    <!-- 单行居中，多行居左，超过两行最后点号省略 -->
+    <div class="container">
+        <h2>
+            <p><em>单行居中多行居左</em></p>
+        </h2>
+        <h2>
+            <p><em>两行标题两行标题两行标题两行标题两行标题</em></p>
+        </h2>
+        <h2>
+            <p><em>超过两行最后点号省略超过两行最后点号省略超过两行最后点号省略超过两行最后点号省略</em></p>
+        </h2>
+    </div>
+
+    <!-- 图片垂直居中布局 -->
+    <ul class="fix-box">
+        <li>
+            <div><img src="./mm1.jpg" /></div>
+        </li>
+        <li>
+            <div><img src="./mm2.jpg" /></div>
+        </li>
+        <li>
+            <div><img src="./mm3.jpg" /></div>
+        </li>
+        <li>
+            <div><img src="./mm4.jpg" /></div>
+        </li>
+    </ul>
+</body>
+<style>
+    .ul-container ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 300px;
+        margin-left: -1px;
+    }
+
+    .ul-container ul li {
+        float: left;
+        width: 99px;
+        line-height: 30px;
+        font-size: 18px;
+        text-align: center;
+        border-left: 1px solid #999;
+        margin-bottom: 10px;
+    }
+
+    .ul-container {
+        width: 300px;
+        margin: 50px auto;
+        background: #eee;
+        padding: 10px 0;
+        overflow: hidden;
+    }
+
+    .container {
+        background: #eee;
+        width: 300px;
+    }
+
+    h2 em {
+        position: relative;
+        font-style: normal;
+        text-align: left;
+        overflow: hidden;
+        display: -webkit-box;
+        /*设置display，将对象作为弹性伸缩盒子模型显示*/
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        /*限制在一个块元素显示的文本的行数*/
+        -webkit-box-orient: vertical;
+        /*规定框的子元素应该被水平或垂直排列*/
+    }
+
+    .container p {
+        display: inline-block;
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .fix-box li {
+        float: left;
+        margin-right: 13px;
+    }
+
+    .fix-box li div {
+        display: table-cell;
+        width: 144px;
+        height: 144px;
+        border: 1px solid #beceeb;
+        /*font-size: 118px;*/
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .fix-box li div img {
+        vertical-align: middle;
+    }
+</style>
+</html>

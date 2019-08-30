@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cssLayout</title>
+</head>
+<body>
+    <!-- 圣杯布局：float+负margin+padding+position
+        布局步骤： 
+        1、三列内容都设置向左浮动。 
+        2、设置container宽度为100%，设置两侧栏的宽度。 
+        3、设置left左边距为负100%，设置right左边距为负的自身宽度。 
+        4、设置body的padding值给左右两块内容留空间。 
+        5、设置left、right为相对定位，左侧的left属性值为负自身宽度，右侧的right属性值为负自身宽度。 
+    -->
+    <div class="body">
+        <div class="container">2</div>
+        <div class="left">1</div>
+        <div class="right">3</div>
+    </div>
+
+    <!-- 双飞翼布局: float+负margin+margin
+        布局步骤： 
+        1、三列内容都设置向左浮动。 
+        2、设置container宽度为100%，设置左右内容的宽度。 
+        3、设置left左边距为负100%，设置right左边距为负自身宽度。 
+        4、设置content的margin值给左右内容留空间。 
+    -->
+    <!-- <div class="container">
+        <div class="content">2</div>
+    </div>
+    <div class="left">1</div>
+    <div class="right">3</div> -->
+
+    <!-- 实现"凹凸"形状效果 -->
+    <!-- <span class="ao"></span>
+    <span class="tu"></span> -->
+
+    <!-- <div class="wrap" id="wrap">
+        <ul>
+            <li data-index="1"><img src="./1.jpg" width="256" height="192"></li>
+            <li data-index="2"><img src="./1.jpg" width="256" height="192"></li>
+            <li data-index="3"><img src="./1.jpg" width="256" height="192"></li>
+            <li data-index="4"><img src="./1.jpg" width="256" height="192"></li>
+            <li data-index="5"><img src="./1.jpg" width="256" height="192"></li>
+        </ul>
+    </div> -->
+
+    <!-- <div class="container">
+        <div class="textarea">
+            <textarea rows="5" placeholder="色块是容器"></textarea>
+        </div>
+    </div> -->
+
+    <!-- <div class="table">
+        <div class="td">
+            <input id="check1" type="checkbox">
+            <p>个人觉得，display:table-cell最强的应用是可以任意个数列表的等宽效果。</p>
+            <div class="element">
+                <p>display:table-cell其他一些应用，例如，两栏自适应布局，垂直居中效果等等都是可以通过其他技术手段模拟出来的，但是，根据列表个数自动等宽的效果，其他CSS是很难模拟的，尤其当需要兼容IE8浏览器的时候。</p>
+            </div>
+            <label for="check1" class="check-in">更多↓</label>
+            <label for="check1" class="check-out">收起↑</label>
+        </div>
+        <div class="td">
+            <input id="check2" type="checkbox">
+            <p>个人觉得，display:table-cell最强的应用是可以任意个数列表的等宽效果。</p>
+            <div class="element">
+                <p>display:table-cell其他一些应用，例如，两栏自适应布局，垂直居中效果等等都是可以通过其他技术手段模拟出来的，但是，根据列表个数自动等宽的效果，其他CSS是很难模拟的，尤其当需要兼容IE8浏览器的时候。</p>
+                <p>然而，此方法也有局限性，就是只能实现单行列表的等分，所以，如果我们希望列表数目超过一定值的时候变成多行，就需要根据数目不同，输出不同的DOM结构，仅仅靠CSS有难度。</p>
+            </div>
+            <label for="check2" class="check-in">更多↓</label>
+            <label for="check2" class="check-out">收起↑</label>
+        </div>
+    </div> -->
+
+    <!-- <select name="" id="" multiple>
+        <option value="1">1</option>
+        <option value="1">2</option>
+        <option value="1">3</option>
+        <option value="1">4</option>
+    </select> -->
+
+
+    <!-- <input type="button" value="按钮按钮按钮按钮按钮按钮">
+    <button type="button">按钮按钮按钮按钮按钮按钮按钮</button> -->
+
+    <!-- <video src=""></video> -->
+
+    <!-- <img alt="xxx"> -->
+
+    <!-- <img data-src='./1.jpg' alt="美女沉思图">
+    <p><button>设置src属性显示图片</button></p>
+    <p class="no-select">无法选中</p> -->
+
+    <!-- <div id="box" class="box">
+        <i class="bar"></i>
+        <i class="bar"></i>
+        <i class="bar"></i>
+        <i class="bar"></i>
+    </div>
+    <p><button id="button">再增加一条数据</button></p> -->
+
+    <!-- 正在加载中<dot>...</dot> -->
+    <!-- <div class="wscont">
+        很长很长的一句话，很长很长的一句话，
+        很长很长的一句话，很长很长的一句话。
+    </div> -->
+    <!-- <div class="parent">
+        <div class="children"></div>
+    </div> -->
+    <style>
+        /*.parent {
+            height: 100%;
+            width: 100%;
+            background: yellowgreen;
+        }
+        .children {
+            width: 500px;
+            height: 500px;
+            background: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }*/
+        /* img {
+            object-fit: fill;
+        } */
+        /* 圣杯布局 */
+         .body {
+            padding: 0 150px;
+        }
+
+        .container {
+            float: left;
+            width: 100%;
+            background: purple;
+        }
+
+        .left, .right {
+            position: relative;
+            float: left;
+            width: 150px;
+        }
+
+        .left {
+            left: -150px;
+            margin-left: -100%;
+            background: red;
+        }
+
+        .right {
+            right: -150px;
+            margin-left: -150px;
+            background: yellow;
+        } 
+
+
+        /* 双飞翼布局 */
+        /* .container, .left, .right {
+            float: left;
+        }
+
+        .container {
+            width: 100%;
+            background: purple;
+        }
+
+        .left {
+            width: 150px;
+            margin-left: -100%;
+            background: red;
+        }
+
+        .right {
+            width: 150px;
+            margin-left: -150px;
+            background: yellow;
+        }
+
+        .content {
+            margin: 0 150px;
+        } */
+
+        /* .ao, .tu {
+            display: inline-block;
+            width: 0;
+            font-size: 14px;
+            line-height: 18px;
+            margin: 35px;
+            color: #fff;
+        }
+
+        .ao:before, .tu:before {
+            outline: 2px solid #cd0000;
+        }
+
+        .ao:before {
+            content: "love你love你";
+        }
+
+        .tu {
+            把文本方向设置为“从右向左”
+            direction: rtl; 
+        }
+
+        .tu:before {
+            content: "我love你love";
+        } */
+
+        /* .wrap {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrap > ul {
+            position: absolute;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        .wrap li {
+            display: inline-block;
+        }
+
+        .wrap li::before {
+            content: attr(data-index);
+            position: absolute;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,.5);
+            width: 22px; height: 22px;
+            line-height: 22px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+        } */
+
+        /* .container {
+            width: 280px;
+            margin: 0 auto;
+            padding: 40px 0;
+            background-color: #f0f3f9;
+            animation: width 2s infinite alternate;
+            alternate:动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。
+            infinite:指定动画应该播放无限次（永远）
+        }
+
+        @keyframes width {
+            from { width: 200px; }
+            to { width: 280px; }
+        }
+
+        .textarea {
+            padding: 9px 8px;
+            border: 1px solid #d0d0d5;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .textarea > textarea {
+            width: 100%;
+            line-height: 20px;
+            padding: 0;
+            border: 0 none;
+            outline: 0 none;
+            background: none;
+            resize: none;
+        } */
+
+        /* .table {
+            display: table;
+            width: 100%;
+            width: calc(100% - 30px);
+            max-width: 400px;
+            margin: auto;
+            table-layout: fixed;
+            text-align: left;
+        }
+        .td {
+            display: table-cell;
+            padding: 5px;
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            clip: rect(0 0 0 0);
+        }
+        .check-in,
+        .check-out {
+            color: #34538b;
+            cursor: pointer;
+        }
+        .check-out {
+            display: none;
+        }
+        :checked ~ .check-out {
+            display: inline-block;
+        }
+        :checked ~ .check-in {
+            display: none;
+        }
+
+        .element {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 1.5s;
+        }
+        :checked ~ .element {
+            max-height: 666px;
+        } */
+
+        /* img {
+            display: inline-block;
+            width: 256px; height: 192px;
+            隐藏Firefox alt文字
+            color: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img:not([src]) {
+            隐藏Chrome alt文字以及银色边框
+            visibility: hidden;
+        }
+
+        img::before {
+            content: "";
+            position: absolute; left: 0;
+            width: 100%; height: 100%;
+            background-color: #f0f3f9;
+            visibility: visible;
+        }
+
+        img::after {
+            content: attr(alt);
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 100%;
+            text-align: center;
+            line-height: 30px;
+            background-color: rgba(0, 0, 0, .5);
+            color: white;
+            font-size: 14px;
+            transform: translateY(100%);
+            transition: transform .2s;
+            visibility: visible;
+        }
+
+        img:hover::after {
+            transform: translateY(0);
+        }
+
+        .no-select {
+            user-select: none;
+        } */
+
+        /* .box {
+            width: 256px;
+            height: 256px;
+            margin: auto;
+            border-bottom: 1px dashed #ccc;
+            text-align: justify;
+        }
+        .box:before {
+            content: "";
+            display: inline-block;
+            height: 100%;
+        }
+        .box:after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+        }
+        .bar {
+            display: inline-block;
+            width: 20px;
+            height: 0;
+            transition: height .25s .2s;
+        } */
+
+        dot {
+            display: inline-block; 
+            height: 1em;
+            line-height: 1;
+            text-align: left;
+            vertical-align: -.25em;
+            overflow: hidden;
+        }
+
+        dot::before {
+            display: block;
+            content: '···\A··\A·';
+            white-space: pre-wrap;
+            animation: dot 1.5s infinite step-start both;
+        }
+
+        @keyframes dot {
+            33% { transform: translateY(-2em); }
+            66% { transform: translateY(-1em); }
+        }
+
+        .wscont {
+            width: 300px;
+            padding: 12px;
+            border: 1px dashed red;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+    <!-- <script type="text/javascript" src="./iscroll.js"></script> -->
+    <script>
+        // new IScroll('#wrap', {
+        //     scrollbars: true,
+        //     scrollX: true,
+        //     scrollY: false,
+        //     click: true
+        // });
+
+
+        // var eleButton = document.querySelector('button'),
+        //     eleImg = document.querySelector('img');
+
+        // if(eleButton && eleImg) {
+        //     var initValueButton = eleButton.innerHTML;
+        //     var srcImage = eleImg.getAttribute('data-src');
+        //     eleImg.removeAttribute('data-src');
+
+        //     eleButton.addEventListener('click', function() {
+        //         this.innerHTML == initValueButton ? (()=> {
+        //             this.innerHTML = '移除src属性';
+        //             eleImg.setAttribute('src', srcImage);
+        //         })() : (()=> {
+        //             this.innerHTML = initValueButton;
+        //             // src属性移除
+        //             eleImg.removeAttribute('src');
+        //         })()
+        //     })
+        // }
+
+        // if (document.querySelector) {
+        // var eleBox = document.getElementById('box');
+        // // 目前柱子元素和个数
+        // var eleBars = document.querySelectorAll('#box > i');
+        // var lenBar = eleBars.length;
+        // if (eleBox && lenBar) {
+        //     for (var indexBar = 0; indexBar < lenBar; indexBar += 1) {
+        //         // 柱形图的柱子高度和背景色随机
+        //         eleBars[indexBar].style.height = Math.ceil(256 * Math.random()) + 'px';
+        //         eleBars[indexBar].style.backgroundColor = '#' + (Math.random() + '').slice(-6);
+        //     }
+        // }
+
+        // // 增加数据
+        // var eleBtn = document.getElementById('button');
+        // if (eleBtn && lenBar) {
+        //     eleBtn.onclick = function() {
+        //         // 随机高度和背景色
+        //         var height = Math.ceil(256 * Math.random()) + 'px';
+        //         var backgroundColor = '#' + (Math.random() + '').slice(-6);
+
+        //         // 创建柱子元素
+        //         var eleClone = eleBars[0].cloneNode();
+
+        //         eleClone.style.height = height;
+        //         eleClone.style.backgroundColor = backgroundColor;
+
+        //         eleBox.innerHTML = eleBox.innerHTML.replace(/I><I/ig, 'I> <I') + ' ' + eleClone.outerHTML;
+
+        //         lenBar+=1;
+        //         // 最多10条数据
+        //         if (lenBar == 10) {
+        //             this.setAttribute('disabled', 'disabled');
+        //         }
+        //     };
+        // }
+    }
+    </script>
+</body>
+</html>

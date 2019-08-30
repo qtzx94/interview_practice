@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Svg Clock</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        /* 钟表样式 */
+        #clock {
+            stroke: black;
+            stroke-linecap: round;
+            fill: #fff;
+        }
+        #face {        /* 表面边框 */
+            stroke-width: 2px;
+        }
+        #ticks {       /* 刻度 */
+            stroke-width: 1px;
+        }
+        #hourhand {    /* 时针 */
+            stroke-width: 1px;
+            stroke: black;
+        }
+        #minutehand {  /* 分针 */
+            stroke-width: 1px;
+            stroke: black;
+        }
+        #secondhand {  /* 秒针 */
+            stroke-width: .5px;
+            stroke: red;
+        }
+        #numbers {
+            /* 表盘数字 */
+            font-family: sans-serif;
+            font-size: 6pt;
+            font-weight: bold;
+            text-anchor: middle;
+            stroke: none;
+            fill: #9d9d9d;
+        }
+
+    </style>
+</head>
+<body onload="updateTime()">
+<svg id="clock" viewBox="0 0 100 100" width="500" height="500">
+    <!-- 表盘 -->
+    <circle id="face2" cx="50" cy="50" r="47.5"/>
+    <circle id="face" cx="50" cy="50" r="45"/>
+    <!-- 刻度线 -->
+    <g id="ticks">
+        <line x1='50' y1='5.000' x2='50.00' y2='10.00'/>
+        <line x1='72.50' y1='11.03' x2='70.00' y2='15.36'/>
+        <line x1='88.97' y1='27.50' x2='84.64' y2='30.00'/>
+        <line x1='95.00' y1='50.00' x2='90.00' y2='50.00'/>
+        <line x1='88.97' y1='72.50' x2='84.64' y2='70.00'/>
+        <line x1='72.50' y1='88.97' x2='70.00' y2='84.64'/>
+        <line x1='50.00' y1='95.00' x2='50.00' y2='90.00'/>
+        <line x1='27.50' y1='88.97' x2='30.00' y2='84.64'/>
+        <line x1='11.03' y1='72.50' x2='15.36' y2='70.00'/>
+        <line x1='5.000' y1='50.00' x2='10.00' y2='50.00'/>
+        <line x1='11.03' y1='27.50' x2='15.36' y2='30.00'/>
+        <line x1='27.50' y1='11.03' x2='30.00' y2='15.36'/>
+    </g>
+    <!-- 表盘数字-->
+    <g id="numbers">
+        <text x="50" y="18">Ⅻ</text>
+        <text x="85" y="53">Ⅲ</text>
+        <text x="50" y="88">Ⅵ</text>
+        <text x="15" y="53">Ⅸ</text>
+    </g>
+    <!-- 表针 -->
+    <g id="hands">
+        <line id="hourhand" x1="50" y1="50" x2="50" y2="35"/>
+        <line id="minutehand" x1="50" y1="50" x2="50" y2="25"/>
+        <line id="secondhand" x1="50" y1="50" x2="50" y2="15"/>
+    </g>
+</svg>
+<script>
+    function updateTime() {
+        // 更新钟表时间
+        var now = new Date();           // 当前时间
+        var min = now.getMinutes();     // 分钟数
+        var hour = now.getHours() % 12; // 小时数
+        var second = now.getSeconds();  // 秒数
+        var secangle = second * 6;      // 每秒钟6度
+        var minangle = min * 6;         // 每分钟6度
+        var hourangle = hour * 30;      // 每小时30度
+        // 获取钟表指针的SVG元素
+        var minhand = document.getElementById("minutehand");
+        var hourhand = document.getElementById("hourhand");
+        var secondehand = document.getElementById("secondhand");
+        // 设置相应SVG元素的transform属性控制表针移动
+        minhand.setAttribute("transform", "rotate(" + minangle + ",50,50)");
+        hourhand.setAttribute("transform", "rotate(" + hourangle + ",50,50)");
+        secondehand.setAttribute("transform", "rotate(" + secangle + ",50,50)")
+        // 每秒钟更新一次
+        setTimeout(updateTime, 1000);
+    }
+</script>
+</body>
+</html>

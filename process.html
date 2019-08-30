@@ -43,6 +43,67 @@
         // 5.理解语句放入异步任务队列的时机
         //      异步函数达到触发条件，比如定时器到时，Ajax请求返回，那么把相应的回调函数处理，根据异步模块类型，压入指定任务队列
 
+        // eg1:
+        console.log('script start');
+
+        setTimeout(function () {
+            console.log('setTimeout');
+        }, 0);
+
+        Promise.resolve().then(function () {
+            console.log('promise1');
+        }).then(function () {
+            console.log('promise2');
+        });
+
+        console.log('script end');
+
+        // eg2:
+        Promise.resolve().then(() => {
+            console.log('Promise1')
+            setTimeout(() => {
+                console.log('setTimeout2')
+            }, 0)
+        })
+
+        setTimeout(() => {
+            console.log('setTimeout1')
+            Promise.resolve().then(() => {
+                console.log('Promise2')
+            })
+        }, 0)
+
+        setTimeout(() => {
+            console.log(1)
+        }, 0)
+        let a = new Promise((resolve) => {
+            console.log(2)
+            resolve()
+        }).then(() => {
+            console.log(3)
+        }).then(() => {
+            console.log(4)
+        })
+        console.log(5)
+
+        // eg3:
+        new Promise((resolve, reject) => {
+            console.log("promise1")
+            resolve()
+        }).then(() => {
+            console.log("then11")
+            new Promise((resolve, reject) => {
+                console.log("promise2")
+                resolve()
+            }).then(() => {
+                console.log("then21")
+            }).then(() => {
+                console.log("then23")
+            })
+        }).then(() => {
+            console.log("then12")
+        })
+
 
         async function async1() {
             console.log('async1 start')

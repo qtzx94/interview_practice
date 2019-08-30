@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scalable Vector Graphics</title>
+</head>
+
+<body>
+    <!-- <svg id="mysvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+        <circle  id="mycircle" cx="400" cy="300" r="50" />
+    </svg> -->
+    <!-- <svg width="100" height="100" viewBox="50 50 50 50">
+        <circle id="mycircle" cx="50" cy="50" r="50" />
+    </svg> -->
+    <!-- <svg width="300" height="180">
+        <circle cx="30" cy="50" r="25" class="red" />
+        <circle cx="90" cy="50" r="25" class="yellow" />
+        <circle cx="150" cy="50" r="25" class="green" />
+
+        <line x1="0" y1="0" x2="200" y2="0" style="stroke:rgb(0,0,0);stroke-width:5" />
+    </svg> -->
+    <!-- <svg width="300" height="180">
+        <path d="
+              M 18,3
+              L 46,3
+              L 46,40
+              L 61,40
+              L 32,68
+              L 3,40
+              L 18,40
+              Z
+            "></path>
+    </svg> -->
+    <!-- <svg width="500px" height="500px">
+        <rect x="0" y="0" width="100" height="100" fill="#feac5e">
+            <animate attributeName="x" from="0" to="500" dur="2s" repeatCount="indefinite" />
+            <animate attributeName="width" to="500" dur="2s" repeatCount="indefinite" />
+        </rect>
+    </svg> -->
+
+    <svg width="500px" height="500px" style="border: 1px solid red;border-radius: 50%;">
+        <line x1="250" y1="250" x2="250" y2="475" style="stroke: black;stroke-width: 2">
+            <animateTransform attributeName="transform" type="rotate" begin="0s" dur="60s" from="-180 250 250" to="180 250 250" repeatCount="indefinite" />
+        </line>
+        <!-- <circle cx="250" cy="250" r="50" fill="blue">
+            <animateTransform attributeName="transform" type="rotate" begin="0s" dur="3s" from="0 200 200" to="720 400 400" repeatCount="indefinite" />
+            <animate attributeName="fill" from="red" to="yellow" dur="3s" repeatCount="indefinite" />
+        </circle> -->
+    </svg>
+    <style>
+        .red {
+            fill: red;
+        }
+
+        .yellow {
+            fill: yellow;
+        }
+
+        .green {
+            fill: green;
+        }
+
+        .fancy {
+            fill: none;
+            stroke: black;
+            stroke-width: 3pt;
+        }
+    </style>
+</body>
+
+</html>

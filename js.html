@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+</head>
+
+<body>
+	<style>
+		#div1 {
+			color: red;
+		}
+
+		span {
+			color: blue;
+		}
+
+		.triangle {
+			border: 10px solid;
+			border-color: #333 transparent transparent transparent;
+			width: 0;
+		}
+
+		.clearfix {
+			border: 2px solid blue;
+			padding: 3px;
+			/* overflow: hidden; */
+			/* float: left; */
+		}
+
+		.clearfix:after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+
+		.blue {
+			color: blue;
+		}
+
+		.red {
+			color: red;
+		}
+
+		/* div {
+			font-size: 48px;
+			text-shadow: 0 0 5px red;
+			-webkit-text-fill-color: transparent;
+		} */
+
+		/* div {
+			font-size: 48px;
+			background: linear-gradient(to bottom, white, black);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+		} */
+
+		div {
+			/* 背景样式 */
+			height: 300px;
+			width: 500px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-image: url('./swiper_page1.png');
+			/* 文字样式 */
+			font-size: 70px;
+			font-weight: bold;
+			text-align: center;
+			line-height: 300px;
+			/* 图片文字样式 */
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+		}
+
+		
+	</style>
+	<!-- <div>27<sup>o</sup>C</div> -->
+
+	<!-- <div style="border: 1px solid #cccccc; padding: 5px; margin-left: 10px;">
+		<span style="display: list-item">100</span>
+		<span style="display: list-item">200</span>
+		<span style="display: list-item">300</span>
+	</div> -->
+
+	<!-- display: block和display: table区别： table具有"包裹性" -->
+	<!-- <div style="border: 1px solid #cccccc; padding: 5px;">
+		display: block;(div默认显示为block)
+	</div>
+	<div style="border: 1px solid #cccccc; padding: 5px; margin-top: 5px; display: table;">
+		display: table;
+	</div> -->
+
+	<!-- <div style="display: table-cell; width: 20%; border: 1px solid #cccccc;">第一列第一列第一列</div>
+	<div style="display: table-cell; border: 1px solid #cccccc;">第二列</div>
+	<div style="display: table-cell; width: 20%; border: 1px solid #cccccc;">第三列</div> -->
+
+	<!-- <div style="font-size: 1em;">测试ememem测试<span style="font-size: 16px;">测试测试</span></div> -->
+	<!-- <div id="div1">
+		<span>qtzx</span>
+	</div>
+
+	<div class="triangle"></div> -->
+
+	<!-- <div class="clearfix">
+		<img src="./mm1.jpg" style="float: left;">
+		<img src="./mm2.jpg" style="float: left;">
+		<div style="clear: both;"></div>
+	</div> -->
+	<!-- <button>Button0</button>
+	<button>Button1</button>
+	<button>Button2</button>
+	<button>Button3</button>
+	<button>Button4</button> -->
+	<!-- <iframe src='https://view.officeapps.live.com/op/view.aspx?src=http://qiniu-test.ishzm.com/PPT.ppt' width='100%' height='1000px' frameborder='1'>
+	</iframe> -->
+	<!-- <iframe src="http://docs.google.com/viewer?url=http://qiniu-test.ishzm.com/PPT.ppt&embedded=true" width="100%" height="780" style="border: none;"></iframe> -->
+	<embed src="http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls" width='100%' height='1000px'>
+	<!-- <iframe src="http://office.qingshanboke.com/Default.aspx?url=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls" width="100%" height="780" style="border: none;"></iframe> -->
+	<!-- <iframe
+src='https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls' width='100%' height='1000px' frameborder='1'>
+</iframe> -->
+	<!-- <div class="red blue">what's color?</div>
+	<div class="blue red">what's color?</div> -->
+
+	<!-- <div>Nice to meet you!</div> -->
+	
+	<script type="text/javascript">
+		let a;
+		let b = null; 
+		let c = {};
+		
+		console.log(c.constructor);
+		// let a = {};
+		// let fn = function() { console.log(this) };
+		// fn.bind().bind(a)(); // Window
+
+		// let a = { name: 'yck'};
+		// function foo() {
+		// 	console.log(this.name);
+		// }
+		// foo.bind(a)(); // yck
+
+		// var a = {
+		// 	user: 'qtzx',
+		// 	fn: function() {
+		// 		console.log(this.user);
+		// 	}
+		// }
+
+		// var b = a.fn;
+		// b();
+
+		// var o = {
+		// 	a: 10,
+		// 	b: {
+		// 		a: 12,
+		// 		fn: function() {
+		// 			console.log(this.a); // 12
+		// 		}
+		// 	}
+		// }
+		// o.b.fn();
+
+		// var o = {
+		// 	a: 10,
+		// 	b: {
+		// 		fn: function() {
+		// 			console.log(this.a); // undefined
+		// 		}
+		// 	}
+		// }
+		// o.b.fn();
+
+
+		// 如果返回值是一个对象，那么this指向的就是返回的对象，如果返回值不是一个对象，那么this还是指向函数的实例
+		// 1、
+		// function fn() {
+		// 	this.user = 'qtzx';
+		// 	return {};
+		// }
+		// var a = new fn;
+		// console.log(a.user); // undefined
+		// 2、
+		// function fn() {
+		// 	this.user = 'qtzx';
+		// 	return function() {};
+		// }
+		// var a = new fn;
+		// console.log(a.user); // undefined
+		// 3、
+		// function fn() {
+		// 	this.user = 'qtzx';
+		// 	return 1;
+		// }
+		// var a = new fn;
+		// console.log(a.user); // qtzx
+		// 4、
+		// function fn() {
+		// 	this.user = 'qtzx';
+		// 	return undefined;
+		// }
+		// var a = new fn;
+		// console.log(a.user); // qtzx
+
+
+		// var a = {
+		// 	user: 'qtzx',
+		// 	fn: function() {
+		// 		console.log(this.user);
+		// 	}
+		// }
+		// var b = a.fn;
+		// // b();
+		// // 如果call，apply第一个参数为null，则指向Window
+		// b.call(a); // 可以添加参数
+		// b.apply(a); // apply 可以加数组参数
+		// console.log(b.bind(a)); // bind返回的是修改过后的函数
+		// b.bind(a)();
+
+		// alert(1 == '1')
+		// alert([] == ![])
+
+		// function A() {
+		// 	let a = 1;
+		// 	window.B = function() {
+		// 		console.log(a)
+		// 	}
+		// }
+
+		// A();
+		// B();
+
+		// for(let i = 1; i <= 5; i++) {
+		// 	setTimeout(function timer() {
+		// 		console.log(i)
+		// 	}, i*1000)
+		// }
+
+		// let a = {
+		// 	age: 1
+		// }
+
+		// let b = Object.assign({}, a);
+		// a.age = 2;
+		// console.log(b.age);
+
+		// let bar = { a: 1, b: 2 };
+		// let baz = Object.assign({}, bar);
+		// baz.a = 2;
+		// console.log(bar)
+
+		// let a = {
+		// 	age: 1,
+		// 	jobs: {
+		// 		first: 'Fe'
+		// 	}
+		// }
+
+		// let b = { ...a }
+		// a.jobs.first = 'native'
+		// console.log(b.jobs.first) //native
+
+		//深拷贝
+		// let c = JSON.parse(JSON.stringify(a));
+		// a.jobs.first = 'young';
+		// console.log(c.jobs.first);
+
+		// var a
+
+		// console.log(a);
+
+		// function a() {}
+
+		// let a = 1
+
+		// class Person {}
+
+		// console.log(Person instanceof Function);
+
+		// map的作用是生成一个新数组，遍历原数组，将每个元素做一定的变换后放到新数组中
+		// console.log([1, 2, 3].map(v => v + 1))
+		// filter也是生成一个新数组，在遍历数组的
+
+
+		// async function testAsync() {
+		// 	return "hello async";
+		// }
+
+		// const result = testAsync();
+		// testAsync().then(v => {
+		// 	console.log(v);
+		// })
+		// console.log(result);
+
+
+		// function getSomething() {
+		// 	return "something";
+		// }
+
+		// async function testAsync() {
+		// 	return Promise.resolve("hello async");
+		// }
+
+		// async function test() {
+		// 	const v1 = await getSomething();
+		// 	const v2 = await testAsync();
+		// 	console.log(v1, v2);
+		// }
+
+		// test();
+
+		// // async的作用是给返回结果值封装成一个Promise对象, 而await是等待这个Promise完成，并将resolve结果返回
+		// function takeLongTime() {
+		// 	return new Promise(resolve => {
+		// 		setTimeout(() => resolve("long_time_value"), 1000);
+		// 	});
+		// };
+
+		// // 不使用async/await的写法
+		// takeLongTime().then( v => {
+		// 	console.log("got", v);
+		// });
+
+		// // 使用async/await的写法
+		// async function test() {
+		// 	const v = await takeLongTime();
+		// 	console.log(v);
+		// }
+
+		// test();
+
+		// function step(n) {
+		// 	console.log(`step with ${n}`);
+		// }
+
+		// step(3);
+
+		// function foo() {
+		// 	throw new Error('test error');
+		// }
+
+		// function bar() {
+		// 	foo();
+		// }
+
+		// bar();
+
+		// console.log('script start')
+
+		// async function async1() {
+		// 	await async2()
+		// 	console.log('async1 end')
+		// }
+		// async function async2() {
+		// 	console.log('async2 end')
+		// }
+		// async1()
+
+		// setTimeout(function () {
+		// 	console.log('setTimeout')
+		// }, 0)
+
+		// new Promise(resolve => {
+		// 	console.log('Promise')
+		// 	resolve()
+		// })
+		// 	.then(function () {
+		// 		console.log('promise1')
+		// 	})
+		// 	.then(function () {
+		// 		console.log('promise2')
+		// 	})
+
+		// console.log('script end')
+
+		// for (let index = 0; index < 10; index++ ) {
+		// 	console.log(index);
+		// }
+
+
+		// var date = new Date(1560910328605);
+		// alert(date)
+
+
+		// var person = {
+		// 	name: '',
+		// };
+
+		// Object.defineProperty(person, "name", {
+		// 	writable: false,
+		// 	value: "qtzx"
+		// });
+
+		// console.log(person.name);
+		// person.name = 'qtzx94';
+		// console.log(person.name);
+
+		// var fn = function() {};
+		// console.log(fn instanceof Object);
+
+		// console.log(typeof null);
+		// console.log(null instanceof null);
+
+		// console.log(typeof Object)
+		// console.log(typeof Array)
+
+		// function Fn() {};
+		// Fn.prototype.name = 'qtzx';
+		// Fn.prototype.getYear = function () {
+		// 	return 1994;
+		// };
+
+		// console.log(Fn.__proto__);
+
+		// var fn = new Fn();
+		// console.log(fn.name);
+		// console.log(fn.getYear());
+
+		// function Foo() {};
+		// var f1 = new Foo();
+
+		// f1.a = 10;
+
+		// Foo.prototype.a = 100;
+		// Foo.prototype.b = 200;
+
+		// var item;
+		// for(item in f1) {
+		// 	if(f1.hasOwnProperty(item)) {
+		// 		console.log(item);
+		// 	}
+		// }
+
+		// function log(msg) {
+		// 	console.log(msg);
+		// }
+
+		// function log() {
+		// 	console.log.apply(console, arguments);
+		// }
+
+		// function log() {
+		// 	var args = Array.prototype.slice.call(arguments);
+		// 	args.unshift('(app)');
+
+		// 	console.log(console, args);
+		// }
+
+		// var bar = function() {
+		// 	console.log(this.x);
+		// }
+
+		// var foo = {
+		// 	x: 10
+		// };
+
+		// bar();
+
+		// var func = bar.bind(foo);
+		// func();
+
+		// function fn(x) {
+		// 	console.log(arguments);
+		// 	console.log(x);
+		// }
+
+		// fn(10);
+
+		// function Foo() {
+		// 	this.name = 'qtzx';
+		// 	this.age = 24;
+
+		// 	console.log(this);
+		// }
+
+		// Foo();
+		// var f1 = new Foo();
+
+
+		// var obj = { 0: 'hello', 1: 'world', length: 2};
+		// var obj = { value : 1 };
+		// console.log(Array.prototype.slice.call(obj));
+
+		// console.log(JSON.stringify({a: 10, b: 20}));
+
+		// console.log(JSON.parse('{"a": 10, "b": 20}'));
+
+		// function Foo(name, age) {
+		// 	this.name = name;
+		// 	this.age = age;
+		// }
+		// Foo.prototype.alertName = function () {
+		// 	alert(this.name)
+		// }
+		// var f = new Foo('qtzx', 19);
+		// f.printName = function () {
+		// 	console.log(this.name)
+		// }
+		// f.printName();
+		// f.alertName();
+		// for (let i in f) {
+		// 	// console.log(i);//name,age,printName,alertName
+		// }
+		// //如何只遍历对象自身的属性，不遍历继承的可枚举属性
+		// for (let i in f) {
+		// 	if (f.hasOwnProperty(i)) {
+		// 		// console.log(i, f[i])
+		// 	}
+		// }
+		// // Object.keys(obj)
+		// console.log(Object.keys(f));
+		// // Object.values(obj)
+		// console.log(Object.values(f));
+		// // Object.entries(obj)
+		// console.log(Object.entries(f));
+
+		// var slice = Array.prototype.slice;
+
+		// Function.prototype.bound = function(ctx) {
+		// 	var fn = this;
+		// 	var _args = slice.call(arguments, 1);
+		// 	return function() {
+		// 		console.log(slice.call(arguments))
+		// 		var args = _args.concat(slice.call(arguments));
+		// 		return fn.apply(ctx, args);
+		// 	};
+		// }
+
+		// var student = { id: '2015' };
+
+		// function showDetail (name, major) {
+		// 	console.log('The id ' + this.id +
+		// 				' is for ' + name +
+		// 				', who major in ' + major);
+		// }
+
+		// showDetail.bound(student, 'Leo')('CS');
+		// // "The id 2015 is for Leo, who major in CS"
+
+		// showDetail.bound(student, 'Leo', 'CS')();
+		// // "The id 2015 is for Leo, who major in CS"
+
+		// typeof console.log
+
+		// 写一个原型链继承的例子
+		// function Animal() {
+		// 	this.eat = function() {
+		// 		console.log('animal eat.');
+		// 	}
+		// }
+		// function Dog() {
+		// 	this.bark = function() {
+		// 		console.log('dog bark.');
+		// 	}
+		// }
+		// Dog.prototype = new Animal();
+		// var huskie = new Dog();
+
+
+
+		// function Elem(id) {
+		// 	this.elem = document.getElementById(id);
+		// }
+		// Elem.prototype.html = function(val) {
+		// 	var elem = this.elem;
+		// 	if(val) {
+		// 		elem.innerHTML = val;
+		// 		return this;
+		// 	}else {
+		// 		return elem.innerHTML;
+		// 	}
+		// }
+		// Elem.prototype.on = function(type, fn) {
+		// 	var elem = this.elem;
+		// 	elem.addEventListener(type, fn);
+		// 	return this;
+		// }
+		// var elem = new Elem("div1");
+		// elem.html("<p>hello world</p>").on("click", function(){
+		// 	alert("clicked")
+		// }).html("<p>JavaScript</p>")
+
+		// 函数柯里化：把接受多个参数的函数变换成接受一个单一参数（初始函数的第一个参数）的函数，并返回 接受余下参数而且返回结果的新函数 的技术
+
+		// 普通add函数
+		function add(x, y) {
+			return x + y;
+		}
+
+		// 柯里化后的add函数
+		function curryingAdd(x) {
+			return function(y) {
+				return x + y;
+			}
+		}
+
+		console.log(curryingAdd(1)(2));
+
+		// // 立即执行函数
+		// (function() {
+		// 	// code
+		// }())
+		// (function() {
+		// 	// code
+		// })()
+
+		// Array.prototype.slice.call(arguments) 是将具有length属性的类数组对象转换成数组
+		// var a = { length: 2, 0: 'first', 1: 'second' };
+		// console.log(Array.prototype.slice.call(a, 1));
+
+		
+		// var currying = function(fn) {
+		// 	var args = Array.prototype.slice.call(arguments, 1);
+		// 	return function() {
+		// 		var newArgs = args.concat(Array.prototype.slice.call(arguments, 1));
+		// 		return fn.apply(this, newArgs);
+		// 	}
+		// }
+
+		// currying(1)(2);
+
+		var obj = {name:'iceman'};
+		function fn() {
+			console.log(this);
+			console.log(this.name);
+		}
+		fn(); // this --> window
+		// obj.fn(); // Uncaught TypeError: obj.fn is not a function
+		fn.call(obj);
+
+		// function list() {
+		// 	return Array.prototype.slice.call(arguments);
+		// }
+
+		// console.log(list(1, 2, 3));
+
+
+		// 实现一个add方法，使计算结果能够满足如下预期：
+		// add(1)(2)(3) = 6;
+		// add(1, 2, 3)(4) = 10;
+		// add(1)(2)(3)(4)(5) = 15;
+
+		// function add() {
+		// 	// 第一次执行时，定义一个数组专门用来存储所有的参数
+		// 	var _args = Array.prototype.slice.call(arguments);
+
+		// 	// 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+		// 	var _adder = function() {
+		// 		_args.push(...arguments);
+		// 		return _adder;
+		// 	};
+
+		// 	// 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+		// 	_adder.toString = function() {
+		// 		return _args.reduce(function(a, b) {
+		// 			return a + b;
+		// 		});
+		// 	}
+
+		// 	return _adder;
+		// }
+
+		// console.log(add(1)(2)(3));
+		// console.log(add(1, 2, 3)(4));
+
+		// var btns = document.getElementsByTagName('button');
+		// for(var i = 0; i < btns.length; i++) {
+		// 	btns[i].onclick = function() {
+		// 		alert(i); // 发现不论点击哪个button ，均alert 5，因为，onclick事件是被异步触发的，当事件被触发时，for循环早已结束，此时变量 i 的值已经是 5 。所以，当onlick事件函数顺着作用域链从内向外查找变量 i 时，找到的值总是 5 
+		// 	}
+		// }
+
+		// 通过立即执行函数解决上述问题
+		// for(var i = 0; i < btns.length; i++) {
+		// 	(function(i) {
+		// 		btns[i].onclick = function() {
+		// 			alert(i);
+		// 		}
+		// 	})(i)
+		// }
+
+		// 封装变量:
+		// 闭包可以将一些不希望暴露在全局的变量封装成“私有变量”。
+		// 假如有一个计算乘积的函数，mult函数接收一些number类型的参数，并返回乘积结果。
+		// 为了提高函数性能，我们增加缓存机制，将之前计算过的结果缓存起来，下次遇到同样的参数，就可以直接返回结果，而不需要参与运算。
+		// 这里，存放缓存结果的变量不需要暴露给外界，并且需要在函数运行结束后，仍然保存，所以可以采用闭包。
+		// var mult = (function(){
+		// 	var cache = {};
+		// 	var calculate = function() {
+		// 		var a = 1;
+		// 		for(var i = 0, len = arguments.length; i < len; i++) {
+		// 			a = a * arguments[i];
+		// 		}
+		// 		return a;  
+		// 	}
+
+		// 	return function() {
+		// 		var args = Array.prototype.slice.call(arguments);
+		// 		if(args in cache) {
+		// 			return cache[args];
+		// 		}
+
+		// 		return cache[args] = calculate.apply(null, arguments);
+		// 	}
+		// }())
+
+		// console.log(mult(2,4,5))
+
+		// 前端使用异步的场景
+		// 1.定时任务 setTimeout, setInterval
+		// 2.网络请求 ajax请求， 动态加载
+		// 3.事件绑定
+
+
+		// var arr = [1, 2, 3];
+		// arr.forEach(function(item, index) {
+		// 	console.log(index, item)
+		// })
+
+		// // map 对元素重新组装， 生成新数组
+		// var arr = [1, 2, 3, 4];
+		// var newArr = arr.map(function(item, index) {
+		// 	return '<b>' + item + '</b>'
+		// })
+		// console.log(newArr);
+
+		// // filter 过滤符合条件的元素
+		// var arr = [1, 3, 4, 5];
+		// var newArr = arr.filter(function(item, index) {
+		// 	if(item < 2) {
+		// 		return true;
+		// 	}
+		// })
+
+		// console.log(newArr);
+
+		// var ua = navigator.userAgent;
+		// console.log(ua)
+
+		// Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0
+		// Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
+		// Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; rv:11.0) like Gecko
+	</script>
+</body>
+
+</html>
