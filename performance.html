@@ -106,6 +106,37 @@
 
             使用CDN服务的网站，只需将其域名的解析权交给CDN的负载均衡设备，CDN负载均衡设备将为用户选择一台合适的缓存服务器，用户通过访问这台缓存服务器来获取自己所需的数据。
             由于缓存服务器部署在网络运营商的机房，而这些运营商又是用户的网络服务提供商，因此用户可以以最短的路径，最快的速度对网站进行访问。因此，CDN可以加速用户访问速度，减少源站中心负载压力
+        2.首屏加载优化方案：
+            1.Vue-Router路由懒加载（利用webpack的代码切割）
+                eg: 
+                    function lazyLoad(view) {
+                        return () => import(/*webpackChunkName: '[request]' */ `@/views/${view}`)
+                    }
+
+                    export default new Router({
+                        routes: [
+                            {
+                                path: '/home',
+                                name: 'home',
+                                component: loadView('Home')
+                            },
+                            {
+                                path: '/about',
+                                name: 'about',
+                                component: loadView('About')
+                            }
+                        ]
+                    })
+            2.使用CDN加速，将通用的库从vendor进行抽离
+            3.Nginx的gzip压缩
+            4.Vue异步组件
+            5.服务端渲染（SSR）
+            6.采用按需加载UI库
+            7.Webpack开启gzip压缩
+            8.如果首屏为登录页，可以做成多入口
+            9.Service Worker缓存文件处理
+            10.使用link标签的rel属性设置prefetch（这段资源将会在未来某个导航或者功能要用到，但是本资源的下载顺序权重比较低，prefetch通常用于加速下一次导航）、
+               preload（preload会把资源的下载顺序权重提高，使得关键数据提前下载好，优化页面打开速度）
     -->
     <div>
         test

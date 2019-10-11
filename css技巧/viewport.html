@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width">-->
+	<title>css技巧</title>
+	<link rel="stylesheet" href="./index.css">
+	<link rel="stylesheet" href="./animate.css">
+	<!-- iconfont星星图标 -->
+	<link rel="stylesheet" href="./font_1356455_c5d3d3ohlbq.css">
+	<script>
+		(function () {
+			var clientWidth = window.screen.width;
+			var dpr = window.devicePixelRatio;
+			// alert(clientWidth)
+			var vp = document.createElement('meta');
+			document.documentElement.style.fontSize = clientWidth > 414 ? '20px' : 20 * dpr * clientWidth / 360 + 'px';
+			//   alert(document.documentElement.style.fontSize)
+			vp.name = 'viewport';
+			vp.content = `initial-scale=${1.0 * 1 / dpr}, maximum-scale=${1.0 * 1 / dpr}, minimum-scale=${1.0 * 1 / dpr}, user-scalable=no, width=device-width`;
+			var m = document.getElementsByTagName('meta')[0];
+			m.parentNode.insertBefore(vp, m);
+		})();
+	</script>
+	<style>
+		/* * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .lines {
+      width: 10rem;
+      margin: 0 auto;
+    }
+
+    .lines li {
+      border: 1px solid #cccccc;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      text-align: center;
+      border-radius: 0.6rem;
+      margin-top: 0.5rem;
+    } */
+
+		/* 显示单行+省略号 */
+		/* p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    } */
+
+		/* 显示多行+省略号 */
+		/* p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    } */
+	</style>
+</head>
+
+<body>
+	<!-- <ul class="lines">
+    <li>1</li>
+    <li>2</li>
+    <li><a href="weixin://">打开微信</a></li>
+    <li><a href="alipays://">打开支付宝</a></li>
+    <li><a href="alipays://platformapi/startapp?saId=10000007">打开支付宝扫一扫功能</a></li>
+    <li><a href="alipays://platformapi/startapp?appId=60000002">打开支付宝蚂蚁森林</a></li>
+  </ul> -->
+
+	<!-- <div class="box">
+      <p>刚好最近遇到这个小需求，记得很早之前都是用JS处理，毕竟那时候年少无知。切换类的操作可以用Checked伪类实现，成本会比较低一点，那么先来列一下功能要点</p>
+    </div> -->
+
+	<!-- <div class="box">
+    <input type="checkbox" name="toggle" id="toggle" style="display: none;">
+    <p>刚好最近遇到这个小需求，记得很早之前都是用JS处理，毕竟那时候年少无知。切换类的操作可以用Checked伪类实现，成本会比较低一点，那么先来列一下功能要点</p>
+    <label for="toggle"></label>
+  </div> -->
+
+	<!-- <p>「不会写前端」</p> -->
+
+	<!-- <p data-content="我是文字内容"></p> -->
+
+	<p data-name="qtzx94" data-age="25" style="--name: '不会写前端';"></p>
+
+	<!-- 1. 当a标签内容为空时，显示其href属性里面的值： -->
+	<a href="https://www.baidu.com"></a>
+
+	<!-- 2. 面包屑和分隔符 -->
+	<ul>
+		<li>首页</li>
+		<li>商品</li>
+		<li>详情</li>
+	</ul>
+
+	<!-- 3.进度条 -->
+
+	<div class="progress" style="--percent: 14;"></div>
+	<div class="progress" style="--percent: 51;"></div>
+	<div class="progress" style="--percent: 84;"></div>
+
+	<!-- 4.tooltip提示 -->
+	<button data-tooltip="我是一段提示">按钮</button>
+
+	<!-- 5.计算checkbox选中的个数 -->
+	<form>
+		<input type="checkbox" id="one">
+		<label for="one">波霸奶茶</label>
+		<input type="checkbox" id="two">
+		<label for="two">仙草奶茶</label>
+		<input type="checkbox" id="three">
+		<label for="three">咖啡</label>
+
+		<!-- 输入结果 -->
+		<div class="result">已选中：</div>
+	</form>
+
+	<!-- 6.给目录加章节计数 -->
+	<!-- 章节 -->
+	<ul class="section">
+		<li>
+			<h1>自我介绍</h1>
+
+			<!-- 子章节 -->
+			<ul class="subsection">
+				<li>
+					<h2></h2>
+				</li>
+				<li>
+					<h2></h2>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<h1>写一段css代码</h1>
+		</li>
+	</ul>
+
+	<!-- 7.加载中...动画 -->
+	<p>加载中</p>
+
+	<!-- 8. 无更多数据 -->
+	<div class="no-more">无更多数据</div>
+
+	<p contenteditable>我是p元素，可编辑</p>
+
+	<h5 class="title"></h5>
+
+	<!-- rate评分组件 -->
+
+	<!-- 原理梳理如下：
+
+	1.去找个好看的iconfont，Iconfont-阿里巴巴矢量图标库；
+	2.借用5个radio单选框，把默认样式都去掉，显示默认的星星；
+	3.用checked伪类监听用户选中✅，由默认的星星变成高亮的星星；
+	4.然后配合~兄弟操作符把当前选中的所有兄弟元素都一起高亮💥；
+	5.把5个radio单选框反向排列 ❗； -->
+
+	<div class="rate-content">
+		<input type="radio" name="rate">
+		<input type="radio" name="rate">
+		<input type="radio" name="rate">
+		<input type="radio" name="rate">
+		<input type="radio" name="rate">
+	</div>
+
+	<!-- 使用overflow-x排版横向列表 -->
+	<div class="bruce flex-ct-y">
+		<div class="horizontal-list flex">
+			<ul>
+				<li>Alibaba</li>
+				<li>Tencent</li>
+				<li>Baidu</li>
+				<li>Jingdong</li>
+				<li>Ant</li>
+				<li>Netease</li>
+				<li>Meituan</li>
+				<li>ByteDance</li>
+				<li>360</li>
+				<li>Sina</li>
+			</ul>
+		</div>
+		<div class="horizontal-list inline">
+			<ul>
+				<li>Alibaba</li>
+				<li>Tencent</li>
+				<li>Baidu</li>
+				<li>Jingdong</li>
+				<li>Ant</li>
+				<li>Netease</li>
+				<li>Meituan</li>
+				<li>ByteDance</li>
+				<li>360</li>
+				<li>Sina</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 使用:valid和:invalid校验表单 -->
+	<div class="bruce flex-ct-x">
+		<form class="form-validation">
+			<div>
+				<label>名字</label>
+				<input type="text" placeholder="请输入你的名字(1到10个中文)" pattern="^[\u4e00-\u9fa5]{1,10}$" required>
+			</div>
+			<div>
+				<label>手机</label>
+				<input type="text" placeholder="请输入你的手机" pattern="^1[3456789]\d{9}$" required>
+			</div>
+			<div>
+				<label>简介</label>
+				<textarea required></textarea>
+			</div>
+		</form>
+	</div>
+
+	<!-- 使用+或~美化选项框 -->
+	<div class="bruce flex-ct-x">
+		<ul class="beauty-selection">
+			<li>
+				<input type="radio" name="radioName" id="fed-engineer" hidden>
+				<label for="fed-engineer"></label>
+				<span>前端工程师</span>
+			</li>
+			<li>
+				<input type="radio" name="radioName" id="bed-engineer" hidden>
+				<label for="bed-engineer"></label>
+				<span>后端工程师</span>
+			</li>
+			<li>
+				<input type="radio" name="radioName" id="fsd-engineer" hidden>
+				<label for="fsd-engineer"></label>
+				<span>全栈工程师</span>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 使用:focus-within分发冒泡响应 -->
+	<div class="bruce flex-ct-x">
+		<form class="bubble-distribution">
+			<h3>注册</h3>
+			<div class="accout">
+				<input type="text" placeholder="请输入手机或邮箱"
+					pattern="^1[3456789]\d{9}$|^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$" required>
+				<img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png">
+			</div>
+			<div class="password">
+				<input type="password" placeholder="请输入密码(6到20位字符)" pattern="^[\dA-Za-z_]{6,20}$" required>
+				<img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png">
+			</div>
+			<div class="code">
+				<input type="text" placeholder="请输入邀请码(6位数字)" pattern="^[\d]{6}$" maxLength="6" required>
+				<button type="button">查询</button>
+				<img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png">
+			</div>
+			<img src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png">
+			<ul>
+				<li>
+					<input type="radio" name="sex" id="male">
+					<label for="male">Boy</label>
+				</li>
+				<li>
+					<input type="radio" name="sex" id="female">
+					<label for="female">Girl</label>
+				</li>
+			</ul>
+			<button type="button">注册</button>
+		</form>
+	</div>
+
+	<!-- 使用max-height切换自动高度 -->
+	<div class="bruce flex-ct-x">
+		<ul class="auto-height">
+			<li>
+				<h3>列表1</h3>
+				<p>内容1<br>内容2<br>内容3<br>内容4</p>
+			</li>
+			<li>
+				<h3>列表2</h3>
+				<p>内容1<br>内容2<br>内容3<br>内容4</p>
+			</li>
+			<li>
+				<h3>列表3</h3>
+				<p>内容1<br>内容2<br>内容3<br>内容4</p>
+			</li>
+		</ul>
+	</div>
+
+</body>
+<script>
+	// let style = document.getElementsByClassName("lines")[0]
+	// console.log(style.getComputedStyle)
+	// window.onresize = function() {
+	//   alert(window.innerWidth);
+	// }
+
+	// window.addEventListener("offline", () => {
+	//   alert("断网啦！")
+	// });
+
+	// navigator.getBattery().then(battery => console.log(battery));
+
+	// document.addEventListener("visibilitychange", () => {
+	//   console.log(`页面可见性：${document.visibilityState}`);
+	// });
+
+
+
+
+	// let permission = Notification.requestPermission;
+
+	// if (permission == "granted") {
+	// 	const notice = new Notification("前端宇宙情报局", {
+	// 		body: "这20个不常用的Web API真的有用吗？别问，问就是有用🈶",
+	// 		icon: "",
+	// 		data: {
+	// 			url: "https://www.baidu.com"
+	// 		}
+	// 	});
+
+	// 	// 点击回调
+	// 	notice.onclick = () => {
+	// 		window.open(notice.data.url)
+	// 	}
+	// } else if (permission == "denied") {
+	// 	alert("发不了")
+	// }
+</script>
+
+</html>

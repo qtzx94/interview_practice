@@ -1,0 +1,662 @@
+* {
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+ul, h3, p {
+    margin: 0;
+}
+// input[name="toggle"]:checked {
+//     &+p {
+//         -webkit-line-clamp: unset;
+//     }
+// }
+
+// label {
+//     &::after {
+//         content: "显示更多";
+//     }
+// }
+
+// input[name="toggle"]:checked {
+//     &~label {
+//         &::after {
+//             content: "收起文本";
+//         }
+//     }
+// }
+
+// p {
+//     &::before {
+//         content: "欢迎关注"
+//     }
+
+//     &::after {
+//         content: "微信公众号"
+//     }
+// }
+
+// p {
+//     &::after {
+//         content: "\02691";
+//         color: red;
+//     }
+// }
+
+// p {
+//     &::after {
+//         content: var(--name);
+//     }
+// }
+
+// 1. 当a标签内容为空时，显示其href属性里面的值：
+p {
+    &::before {
+        content: attr(data-content)
+    }
+}
+
+a {
+    &:empty {
+        &::after {
+            content: "链接内容为："attr(href)
+        }
+    }
+}
+
+
+// 2. 面包屑和分隔符
+// ul {
+//     display: flex;
+//     font-weight: bold;
+//     list-style: none;
+
+//     li {
+//         &:not(:last-child) {
+//             margin-right: 5px;
+
+//             &::after {
+//                 content: "\276D";
+//                 margin-left: 5px;
+//             }
+//         }
+//     }
+// }
+
+// 3.进度条
+.progress {
+    width: 400px;
+    height: 17px;
+    margin: 5px;
+    color: #fff;
+    background-color: #f1f1f1;
+    font-size: 12px;
+
+    &::before {
+        // counter-reset的作用是定义一个计数器：
+        counter-reset: percent var(--percent); // 声明一个计数器percent，并从变量（--percent）开始计算
+        content: counter(percent)"%";
+
+        display: inline-block;
+        // width: calc(100% * var(--percent) / 100);
+        max-width: 100%;
+        height: inherit;
+        text-align: right;
+        background-color: #2486ff;
+        // transition: width 1s ease;
+        animation: progress 1s ease forwards;
+    }
+
+    @keyframes progress {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: calc(100% * var(--percent) / 100);
+        }
+    }
+}
+
+// 4.tooltip提示
+[data-tooltip] {
+    position: relative;
+
+    &::after {
+        content: attr(data-tooltip);
+        display: none; // 默认隐藏
+        position: absolute;
+
+        // 漂浮在按钮上方并居中
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+
+        padding: 5px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #313131;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    // 鼠标移入button的时候显示tooltip
+    &:hover {
+        &::after {
+            display: block;
+        }
+    }
+}
+
+// 5.计算checkbox选中的个数
+form {
+    counter-reset: count 0;
+
+    // 当checkbox选中的时候，计数器自增1
+    input[type="checkbox"] {
+        &:checked {
+            counter-increment: count 1;
+        }
+    }
+
+    // 输出结果
+    .result {
+        &::after {
+            content: counter(count);
+        }
+    }
+}
+
+// 6.给目录加章节计数
+// 章节
+.section {
+    counter-reset: section 0; // 外层计数器
+
+    h1 {
+        &::before {
+            counter-increment: section 1; // 自增1
+            content: "Section"counter(section)". ";
+        }
+    }
+
+    // 子章节
+    .subsection {
+        counter-reset: subsection 0; // 内层计数器
+
+        h2 {
+            &::before {
+                counter-increment: subsection 1; // 自增1
+                content: counter(section)"."counter(subsection); // 计数器是有作用域的，这里可以访问外层计数器
+            }
+        }
+    }
+}
+
+// 7.加载中...动画
+// p {
+//     &::after {
+//         content: ".";
+//         animation: loading 2s ease infinite;
+//     }
+
+//     @keyframes loading {
+//         33% {
+//             content: "..";
+//         }
+
+//         66% {
+//             content: "...";
+//         }
+//     }
+// }
+
+// 8. 无更多数据
+.no-more {
+    &::before {
+        content: "——";
+        margin-right: 10px;
+    }
+
+
+    &::after {
+        content: "——";
+        margin-left: 10px;
+    }
+}
+
+
+input {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.rate-content {
+    display: flex;
+    flex-flow: row-reverse; // input反向排列
+    $main: #ffa822; // 高亮颜色
+    $basic: #999; // 默认颜色
+
+    // 单个星星
+    input[name="rate"] {
+        font-family: "iconfont";
+        font-size: 30px;
+        padding-right: 10px;
+
+        transition: transform .2s ease; // 加入过度效果
+
+        // 默认显示的星星
+        &::after {
+            content: "\e645";
+            color: $basic;
+            transition: color .4s ease;
+        }
+
+        // 高亮的星星
+        &:checked,
+        &:hover {
+            &::after {
+                content: "\e73c";
+                color: $main;
+            }
+
+            // 实现连同兄弟元素一起高亮
+            &~input[name="rate"] {
+                &::after {
+                    content: "\e73c";
+                    color: $main;
+                }
+            }
+        }
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+
+// 使用overflow-x排版横向列表
+.horizontal-list {
+    overflow: hidden;
+    width: 300px;
+    height: 100px;
+
+    ul {
+        overflow-x: scroll;
+        cursor: pointer;
+
+        &::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #007fff;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: red;
+        }
+    }
+
+    li {
+        overflow: hidden;
+        margin-left: 10px;
+        height: 90px;
+        background-color: purple;
+        line-height: 90px;
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+.flex {
+    ul {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    li {
+        flex-shrink: 0;
+        flex-basis: 90px;
+    }
+}
+
+.inline {
+    margin-top: 10px;
+    height: 102px;
+
+    ul {
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    li {
+        display: inline-block;
+        width: 90px;
+    }
+}
+
+
+// 使用:valid和:invalid校验表单
+.form-validation {
+    width: 500px;
+
+    div {
+        margin-top: 10px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    label {
+        display: block;
+        padding-bottom: 5px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    input,
+    textarea {
+        box-sizing: border-box;
+        display: block;
+        padding: 0 20px;
+        outline: none;
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 40px;
+        caret-color: #007fff;
+        transition: all 300ms;
+
+        &:valid {
+            border-color: green;
+            // box-shadow: h-shadow v-shadow blur spread color inset;
+            // 值 	         说明
+            // h-shadow 	必需的。水平阴影的位置。允许负值
+            // v-shadow 	必需的。垂直阴影的位置。允许负值
+            // blur 	    可选。模糊距离
+            // spread 	    可选。阴影的大小
+            // color 	    可选。阴影的颜色。在CSS颜色值寻找颜色值的完整列表
+            // inset 	    可选。从外层的阴影（开始时）改变阴影内侧阴影
+            box-shadow: inset 5px 0 0 green;
+        }
+
+        &:invalid {
+            border-color: red;
+            box-shadow: inset 5px 0 0 red;
+        }
+    }
+
+    textarea {
+        height: 122px;
+        resize: none;
+        line-height: 30px;
+        font-size: 16px;
+    }
+}
+
+// 使用+或~美化选项框
+.beauty-selection {
+    display: flex;
+
+    li {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    input:checked+label {
+        background-color: orange;
+    }
+
+    label {
+        margin-right: 5px;
+        padding: 2px;
+        border: 1px solid orange;
+        border-radius: 100%;
+        width: 18px;
+        height: 18px;
+        // background-clip属性指定背景绘制区域 border-box(默认)|padding-box|content-box;
+        background-clip: content-box;
+        cursor: pointer;
+        transition: all 300ms;
+
+        &:hover {
+            border-color: #007fff;
+            background-color: #007fff;
+            box-shadow: 0 0 7px #007fff;
+        }
+    }
+
+    span {
+        font-size: 16px;
+    }
+}
+
+// 使用:focus-within分发冒泡响应
+.bruce {
+    // background-color: #999;
+    margin-bottom: 100px;
+}
+
+.bubble-distribution {
+    position: relative;
+    margin-top: 50px;
+    padding: 25px;
+    border-radius: 2px;
+    width: 320px;
+    background-color: #fff;
+    border: 1px solid steelblue;
+
+    h3 {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+    }
+
+    div {
+        margin-top: 10px;
+    }
+
+    img {
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        margin: 0 0 -20px -60px;
+        width: 120px;
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+    }
+
+    li {
+        position: relative;
+        width: 45%;
+        transition: all 300ms;
+
+        &:focus-within {
+            background: linear-gradient(90deg, #007fff 50%, transparent 0) repeat-x,
+                linear-gradient(90deg, #007fff 50%, transparent 0) repeat-x,
+                linear-gradient(0deg, #007fff 50%, transparent 0) repeat-y,
+                linear-gradient(0deg, #007fff 50%, transparent 0) repeat-y;
+            background-position: 0 0, 0 100%, 0 0, 100% 0;
+            background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+            animation: move 500ms infinite linear;
+        }
+    }
+
+    input[type=text],
+    input[type=password] {
+        padding-left: 10px;
+        outline: none;
+        border: 1px solid #e9e9e9;
+        border-radius: 2px;
+        width: 100%;
+        height: 40px;
+        transition: all 300ms;
+
+        &:focus:valid {
+            border-color: green;
+        }
+
+        &:focus:invalid {
+            border-color: red;
+        }
+    }
+
+    input[type=radio] {
+        position: absolute;
+        width: 0;
+        height: 0;
+
+        &:checked+label {
+            border: 3px solid transparent;
+            background-color: #007fff;
+            color: #fff;
+        }
+    }
+
+    label {
+        display: block;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        background-clip: padding-box;
+        cursor: pointer;
+        text-align: center;
+        transition: all 300ms;
+    }
+
+    button {
+        padding: 0;
+        overflow: hidden;
+        margin-top: 10px;
+        outline: none;
+        border: none;
+        border-radius: 2px;
+        width: 100%;
+        height: 40px;
+        background-color: #007fff;
+        cursor: pointer;
+        color: #fff;
+        transition: all 300ms;
+    }
+}
+
+.accout,
+.password,
+.code {
+    img {
+        display: none;
+        margin-bottom: -27px;
+    }
+
+    // 表单控件触发focus和blur事件后往父元素进行冒泡，在父元素上通过:focus-within捕获该冒泡事件来设置样式
+    &:focus-within {
+        img {
+            display: block;
+        }
+
+        &~img {
+            display: none;
+        }
+    }
+}
+
+.code {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        margin-top: 0;
+    }
+
+    input {
+
+        // :placeholder-shown伪类表示当输入框的placeholder显示的时候，输入框该干嘛
+        &:not(:placeholder-shown) {
+            width: 70%;
+
+            &+button {
+                width: 25%;
+            }
+        }
+
+        &:placeholder-shown {
+            width: 100%;
+
+            &+button {
+                width: 0;
+                opacity: 0;
+            }
+        }
+    }
+}
+
+@keyframes move {
+    to {
+        background-position: 6% 0, -6% 100%, 0 -6%, 100% 6%;
+    }
+}
+
+// 使用max-height切换自动高度
+.auto-height {
+    width: 300px;
+
+    li {
+        margin-top: 5px;
+        cursor: pointer;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:hover p {
+            border-bottom-width: 1px;
+            max-height: 600px;
+            transition: all 500ms;
+        }
+    }
+
+    h3 {
+        padding: 0 20px;
+        height: 40px;
+        background-color: red;
+        cursor: pointer;
+        line-height: 40px;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    p {
+        overflow: hidden;
+        padding: 0 20px;
+        border: 1px solid red;
+        border-top: none;
+        border-bottom-width: 0;
+        max-height: 0;
+        line-height: 30px;
+        transition: all 500ms;
+    }
+}
