@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .tab-button {
+            padding: 6px 10px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            background: #f0f0f0;
+            margin-bottom: -1px;
+            margin-right: 1px;
+        }
+
+        .tab-button:hover {
+            background: #e0e0e0;
+        }
+
+        .tab-button.active {
+            background: #e0e0e0;
+        }
+
+        .tab {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .posts-tab {
+            display: flex;
+        }
+
+        .posts-sidebar {
+            max-width: 40vw;
+            margin: 0;
+            padding: 0 10px 0 0;
+            list-style-type: none;
+            border-right: 1px solid #ccc;
+        }
+
+        .posts-sidebar li {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+        .posts-sidebar li:hover {
+            background: #eee;
+        }
+
+        .posts-sidebar li.selected {
+            background: lightblue;
+        }
+
+        .selected-post-container {
+            padding-left: 10px;
+        }
+
+        .selected-post> :first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="app">
+        <div :style="{ fontSize: postFontSize + 'em'}">
+            <blog-post v-for="post in posts" :key="post.id" :post="post" @enlarge-text="postFontSize += $event">
+            </blog-post>
+        </div>
+        <input :value="searchText" @input="searchText = $event.target.value">
+        <p>{{ searchText }}</p>
+        <alert-box @click.native="outClick">
+            Something bad happened.
+        </alert-box>
+        <p title="hello">world</p>
+        <base-input @click.native="onFocus" :value="111" :label="222"></base-input>
+        <submit-button>Save</submit-button>
+        <base-layout>
+            <template v-slot:header>
+                <h1>Here might be a page title</h1>
+            </template>
+            <template v-slot:default>
+                <p>A paragraph for the main content.</p>
+                <p>And another one.</p>
+            </template>
+            <template v-slot:footer>
+                <p>Here's some contact info</p>
+            </template>
+        </base-layout>
+    </div> -->
+    <div id="dynamic-component-demo">
+        <!-- <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
+            v-on:click="currentTab = tab">
+            {{ tab }}
+        </button>
+        <keep-alive>
+            <component v-bind:is="currentTabComponent" class="tab"></component>
+        </keep-alive> -->
+        <focus-input></focus-input>
+        <input type="text">
+        <anchored-heading :level="1">Hello world!</anchored-heading>
+        <anchored-heading :level="2">Hello world!</anchored-heading>
+        <anchored-heading :level="3">Hello world!</anchored-heading>
+        <anchored-heading :level="4">Hello world!</anchored-heading>
+        <anchored-heading :level="5">Hello world!</anchored-heading>
+        <anchored-heading :level="6">Hello world!</anchored-heading>
+        <heading></heading>
+        <item-list :items="items"></item-list>
+        <my-model :value="myValue"></my-model>
+    </div>
+    <script type="text/x-template" id="anchored-heading-template">
+        <h1 v-if="level === 1">
+          <slot></slot>
+        </h1>
+        <h2 v-else-if="level === 2">
+          <slot></slot>
+        </h2>
+        <h3 v-else-if="level === 3">
+          <slot></slot>
+        </h3>
+        <h4 v-else-if="level === 4">
+          <slot></slot>
+        </h4>
+        <h5 v-else-if="level === 5">
+          <slot></slot>
+        </h5>
+        <h6 v-else-if="level === 6">
+          <slot></slot>
+        </h6>
+    </script>
+    <script>
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                    <h3>{{ post.title }}</h3>
+                    <button @click="$emit('enlarge-text', 0.1)">
+                        Enlarge text
+                    </button>
+                    <div v-html="post.content"></div>
+                </div>
+            `
+        })
+
+        Vue.component('alert-box', {
+            template: `
+                <div class="demo-alert-box">
+                    <strong>Error!</strong>
+                    <slot></slot>
+                </div>
+            `
+        })
+
+        Vue.component('base-input', {
+            inheritAttrs: false,
+            props: ['label', 'value'],
+            computed: {
+                inputListeners() {
+                    var vm = this
+                    return Object.assign({},
+                        this.$listeners,
+                        {
+                            input(event) {
+                                vm.$emit('input', event.target.value)
+                            }
+                        }
+                    )
+                }
+            },
+            template: `
+                <label>
+                    {{ label }}
+                <input
+                    v-bind="$attrs"
+                    v-bind:value="value"
+                    v-on="inputListeners"
+                >
+                </label>
+            `
+        })
+
+        Vue.component('submit-button', {
+            template: `
+                <button type="submit">
+                    <slot>Submit</slot>
+                </button>
+            `
+        })
+
+        Vue.component('base-layout', {
+            template: `
+                <div class="container">
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>
+            `
+        })
+
+        Vue.component('todo-list', {
+            template: `
+                <ul>
+                    <li v-for="todo in filteredTodos" :key="todo.id">
+                        <slot name="todo" :todo="todo">
+                            {{ todo.text }}
+                        </slot>
+                    </li>
+                </ul>
+            `
+        })
+
+        Vue.component('tab-posts', {
+            data: function () {
+                return {
+                    posts: [
+                        {
+                            id: 1,
+                            title: 'Cat Ipsum',
+                            content: '<p>Dont wait for the storm to pass, dance in the rain kick up litter decide to want nothing to do with my owner today demand to be let outside at once, and expect owner to wait for me as i think about it cat cat moo moo lick ears lick paws so make meme, make cute face but lick the other cats. Kitty poochy chase imaginary bugs, but stand in front of the computer screen. Sweet beast cat dog hate mouse eat string barf pillow no baths hate everything stare at guinea pigs. My left donut is missing, as is my right loved it, hated it, loved it, hated it scoot butt on the rug cat not kitten around</p>'
+                        },
+                        {
+                            id: 2,
+                            title: 'Hipster Ipsum',
+                            content: '<p>Bushwick blue bottle scenester helvetica ugh, meh four loko. Put a bird on it lumbersexual franzen shabby chic, street art knausgaard trust fund shaman scenester live-edge mixtape taxidermy viral yuccie succulents. Keytar poke bicycle rights, crucifix street art neutra air plant PBR&B hoodie plaid venmo. Tilde swag art party fanny pack vinyl letterpress venmo jean shorts offal mumblecore. Vice blog gentrify mlkshk tattooed occupy snackwave, hoodie craft beer next level migas 8-bit chartreuse. Trust fund food truck drinking vinegar gochujang.</p>'
+                        },
+                        {
+                            id: 3,
+                            title: 'Cupcake Ipsum',
+                            content: '<p>Icing dessert soufflé lollipop chocolate bar sweet tart cake chupa chups. Soufflé marzipan jelly beans croissant toffee marzipan cupcake icing fruitcake. Muffin cake pudding soufflé wafer jelly bear claw sesame snaps marshmallow. Marzipan soufflé croissant lemon drops gingerbread sugar plum lemon drops apple pie gummies. Sweet roll donut oat cake toffee cake. Liquorice candy macaroon toffee cookie marzipan.</p>'
+                        }
+                    ],
+                    selectedPost: null
+                }
+            },
+            template: `
+                <div class="posts-tab">
+                    <ul class="posts-sidebar">
+                        <li
+                            v-for="post in posts"
+                            v-bind:key="post.id"
+                            v-bind:class="{ selected: post === selectedPost }"
+                            v-on:click="selectedPost = post"
+                        >
+                            {{ post.title }}
+                        </li>
+                    </ul>
+                    <div class="selected-post-container">
+                        <div 
+                            v-if="selectedPost"
+                            class="selected-post"
+                        >
+                            <h3>{{ selectedPost.title }}</h3>
+                            <div v-html="selectedPost.content"></div>
+                        </div>
+                        <strong v-else>
+                            Click on a blog title to the left to view it.
+                        </strong>
+                    </div>
+                </div>
+            `
+        })
+
+        Vue.component('tab-archive', {
+            template: '<div>Archive component</div>'
+        })
+
+        Vue.component('focus-input', {
+            // 自定义指令
+            directives: {
+                focus: {
+                    inserted(el) {
+                        el.focus()
+                    }
+                }
+            },
+            template: `
+                <input v-focus>
+            `
+        })
+
+        // Vue.component('anchored-heading', {
+        //     template: `#anchored-heading-template`,
+        //     props: {
+        //         level: {
+        //             type: Number,
+        //             required: true
+        //         }
+        //     }
+        // })
+
+        // 使用 render 函数重写上面的例子
+        Vue.component('anchored-heading', {
+            render: function (createdElement) {
+                return createdElement(
+                    'h' + this.level, // 标签名字
+                    this.$slots.default // 向组件传递不带v-slot指令的子节点时，比如anchored-heading中的hello world，这些子节点被存储在组件实例的$slots.default中
+                )
+            },
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                }
+            },
+            created() {
+                console.log(this.$slots.default)
+            }
+        })
+
+        // 重复很多次的元素/组件，可以使用工厂函数来实现。例如，下面这渲染函数用完全合法的方式渲染了 20 个相同的段落
+        Vue.component('heading', {
+            render(createdElement) {
+                return createdElement('div',
+                    Array.apply(null, { length: 2 }).map(() => {
+                        return createdElement('p', 'hello')
+                    })
+                )
+            }
+        })
+
+        Vue.component('item-list', {
+            props: ['items'],
+            render: function(createdElement) {
+                if (this.items.length) {
+                    return createdElement('ul', this.items.map((item) => {
+                        return createdElement('li', item.name)
+                    }))
+                } else {
+                    return createdElement('p', 'No items found.')
+                }
+            }
+        })
+
+        // 渲染函数中没有与 v-model 的直接对应——你必须自己实现相应的逻辑
+        Vue.component('my-model', {
+            props: ['value'],
+            render: function(createdElement) {
+                var self = this
+                return createdElement('input', {
+                    domProps: {
+                        value: self.value
+                    },
+                    on: {
+                        input(event) {
+                            self.$emit('input', event.target.value)
+                        }
+                    }
+                })
+            }
+        })
+
+        new Vue({
+            el: '#dynamic-component-demo',
+            data: {
+                currentTab: 'Posts',
+                tabs: ['Posts', 'Archive'],
+                items: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'b'},
+                    {id: 3, name: 'c'},
+                ],
+                myValue: 'my-v-model'
+            },
+            computed: {
+                currentTabComponent: function () {
+                    return 'tab-' + this.currentTab.toLowerCase()
+                }
+            }
+        })
+
+        // 定义一个混入对象
+        var myMixin = {
+            created() {
+                this.hello()
+            },
+            methods: {
+                hello() {
+                    console.log('hello from mixin!');
+                }
+            }
+        }
+
+        // 定义一个使用混入对象的组件
+        var Component = Vue.extend({
+            mixins: [myMixin]
+        })
+
+        var component = new Component();
+
+        // 全局混入
+        Vue.mixin({
+            created() {
+                var myOption = this.$options.myOption
+                if (myOption) {
+                    console.log(myOption)
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                posts: [
+                    { id: 1, title: 'My journey with Vue', content: '...content...' }
+                ],
+                postFontSize: 1,
+                searchText: ''
+            },
+            methods: {
+                outClick() {
+                    console.log('out click')
+                },
+                onFocus() {
+                    console.log('onFocus')
+                }
+            },
+            myOption: 'hello myOption!'
+        })
+
+
+        // const Sub = Vue.extend({
+        //     watch: {
+        //         test: function() {
+        //             console.log('extend: test change')
+        //         }
+        //     }
+        // })
+
+        // const consoleMixin = {
+        //     created() {
+        //         console.log('create: mixins')
+        //     }
+        // }
+        // const v = new Sub({
+        //     mixins: [consoleMixin],
+        //     created() {
+        //         console.log('create: new')
+        //     },
+        //     el: '#app',
+        //     data: {
+        //         test: 1
+        //     },
+        //     watch: {
+        //         test: function() {
+        //             console.log('instance: test change')
+        //         }
+        //     }
+        // })
+
+        // var vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         test: 1
+        //     }
+        // })
+
+        // vm.$watch('test', () => {
+        //     console.log('修改了test值')
+        // })
+
+        const data = {
+            a: {
+                b: 1
+            }
+        }
+
+        function walk(data) {
+            for (const key in data) {
+                const dep = []
+                let val = data[key] // 缓存字段原有的值
+                // 如果val是对象，递归调用walk函数将其转化为访问器属性
+                const nativeString = Object.prototype.toString.call(val)
+                if (nativeString === '[object object]') {
+                    walk(val)
+                }
+                Object.defineProperty(data, key, {
+                    set(newVal) {
+                        // 如果值没有变化，什么都不做
+                        if (val === newVal) return
+                        // 否则新值替换旧值
+                        val = newVal
+                        dep.forEach(fn => fn())
+                    },
+                    get() {
+                        // 此时Target变量中保存的就是依赖函数
+                        dep.push(Target)
+                        return val // 将该值返回
+                    }
+                })
+            }
+        }
+
+        walk(data)
+
+        // Target是全局变量
+        let Target = null
+        function $watch(exp, fn) {
+            // 将Target值设为fn
+            Target = fn
+            let pathArr,
+                obj = data
+            // 如果exp是函数，直接执行该函数
+            if (typeof exp === 'function') {
+                exp()
+                return
+            }
+            // 检查exp中是否包含.
+            if (/\./.test(exp)) {
+                // 将字符串转为数组,eg: 'a.b' => ['a', 'b']
+                pathArr = exp.split('.')
+                // 使用循环读取到data.a.b
+                pathArr.forEach(p => {
+                    obj = obj[p]
+                })
+                return
+            }
+            // 读取字段值，触发get函数
+            data[exp]
+        }
+
+        $watch('a.b', () => {
+            console.log('第一个依赖')
+        })
+
+        $watch('a.b', () => {
+            console.log('第二个依赖')
+        })
+
+        var person = {
+            name: 'Jack',
+            age: 24
+        }
+        console.log(Object.getOwnPropertyDescriptor(person, 'name'));
+
+        // 在javaScript中，对象的属性分成两种类型：数据属性和访问器属性
+
+        /**
+         * 一、数据属性：
+         * 1.数据属性：它包含的是一个数据值的位置，在这可以对数据值进行读写
+         * 2.数据属性包含四个特性：
+         *      configurable: 表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，或能否把属性修改为访问器属性，默认为true
+         *      enumerable：表示能否通过for-in循环返回属性
+         *      writable： 表示能否修改属性的值
+         *      value：包含该属性的数据值。默认为undefined
+         *   
+         *   通过Object.getOwnPropertyDescriptor(obj, key)获取指定属性的描述
+         *   通过Object.definePorperty(obj, key, descriptor)修改指定单个属性的默认特性
+         */
+
+        /**
+         * 二、访问器属性：
+         * 1.访问器属性：这个属性不包含数据值，包含的是一对get和set方法，在读写访问器属性时，就是通过这两个方法来进行操作处理的
+         * 2.访问器属性包含四个特性：
+         *     configurable: 表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，或能否把属性修改为访问器属性，默认为false
+         *     enumerable：表示能否通过for-in循环返回属性
+         *     Get：在读取属性时调用的函数，默认值为undefined
+         *     Set：在写入属性时调用的函数，默认值为undefined
+         * 
+         *   访问器属性不能直接定义，要通过Object.defineProperty()这个方法来定义
+         *   
+         */
+
+        var book = {
+            _year: 2017, // 下划线表示的是内部属性，只能通过对象的方法来读写
+            editor: 1
+        };
+        Object.defineProperty(book, "year", {
+            get: function () {
+                return this._year
+            },
+            // 若只指定get方法，不指定set方法，那就默认该属性是只读的
+            set: function (newYear) {
+                if (newYear !== this._year) {
+                    this._year = newYear;
+                    this.editor++;
+                }
+            }
+        });
+        // 打印属性year的特性描述
+        console.log(Object.getOwnPropertyDescriptor(book, 'year'));
+        // 测试访问属性中的get、set方法
+        console.log("未修改：" + book.year);
+        book.year = 2018;
+        console.log("修改后year的值：" + book.year);
+        console.log("修改year的值后，editor属性的值：" + book.editor);
+
+        // 要拦截的数组变异方法
+        const mutationMethods = [
+            'push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'
+        ]
+
+        const arrayMethods = Object.create(Array.prototype)
+        const arrayProto = Array.prototype // 缓存Array.prototype
+
+        mutationMethods.forEach(method => {
+            arrayMethods[method] = function (...args) {
+                const result = arrayProto[method].apply(this, args)
+
+                console.log(`执行了代理原型的${method}函数`)
+
+                return result
+            }
+        })
+    </script>
+</body>
+
+</html>
