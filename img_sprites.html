@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .num {
+            width: 40px;
+            height: 40px;
+            object-fit: none;
+            object-position: 0 0;
+            -webkit-transition: object-position .25s;
+            transition: object-position .25s;
+        }
+
+        .num0 {}
+
+        .num1 {
+            object-position: 0 -40px;
+        }
+
+        .num2 {
+            object-position: 0 -80px;
+        }
+
+        .num3 {
+            object-position: 0 -120px;
+        }
+
+        .num4 {
+            object-position: 0 -160px;
+        }
+
+        .num5 {
+            object-position: 0 -200px;
+        }
+
+        .num6 {
+            object-position: 0 -240px;
+        }
+
+        .num7 {
+            object-position: 0 -280px;
+        }
+
+        .num8 {
+            object-position: 0 -320px;
+        }
+
+        .num9 {
+            object-position: 0 -360px;
+        }
+    </style>
+</head>
+
+<body>
+    <p><strong>显示的数字是(100~999)：<input type="number" value="283" min="100" max="999"></strong></p>
+    <img src="./icons-ol.png" class="num num2">
+    <img src="./icons-ol.png" class="num num8">
+    <img src="./icons-ol.png" class="num num3">
+</body>
+<script>
+    if (window.addEventListener) {
+        var eleNums = document.querySelectorAll(".num");
+        document.querySelector("input").addEventListener("change", function () {
+            var value = this.value.trim() * 1;
+            if (!value || value < 100 || value > 999) { value = 283; }
+            this.value = value;
+            this.value.split("").forEach(function (num, index) {
+                eleNums[index].className = "num num" + num;
+            });
+        });
+    }
+</script>
+
+</html>

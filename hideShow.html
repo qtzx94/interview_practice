@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS实现DIV感应鼠标Hover时的显示隐藏效果</title>
+    <style>
+        .wrap {
+            position: relative;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .wrap .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            
+        }
+
+        .wrap .box:first-child {
+            border: 2px solid red;
+        }
+
+        .wrap .box:nth-child(2) {
+            display: none;
+            border: 2px solid yellow;
+        }
+
+        .wrap:hover .box:nth-child(2) {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box">
+        </div>
+        <div class="box">
+        </div>
+    </div>
+</body>
+
+</html>
