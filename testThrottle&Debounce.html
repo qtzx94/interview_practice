@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Throttle&Debounce</title>
+</head>
+
+<body>
+    <h1>test throttle and debounce</h1>
+</body>
+<script>
+    let throttle = function (func, delay) {
+        let timer = null;
+        return () => {
+            if (!timer) {
+                timer = setTimeout(function () {
+                    func.apply(this, arguments);
+                    timer = null;
+                }, delay);
+            }
+        };
+    };
+
+    function handle() {
+        console.log(Math.random());
+    }
+
+    // window.addEventListener('resize', throttle(handle, 1000)); // 节流: 事件触发后每隔一段时间触发一次
+
+    let debounce = function (func, wait) {
+        var timeout = null;
+        return function () {
+            if (timeout !== null) clearTimeout(timeout); // 如果多次触发 将上次记录延迟清除
+            timeout = setTimeout(() => {
+                func.apply(this, arguments);
+                timeout = null;
+            }, wait);
+        };
+    }
+
+    window.addEventListener('resize', debounce(handle, 1000)); // 防抖： 事件触发动作完成后一段时间触发一次
+
+    // 工厂模式创建对象
+    function createPerson(name) {
+        var o = new Object();
+        o.name = name;
+        return o;
+    }
+
+    var person1 = createPerson('张三');
+
+    /* 当我们用new运算符new一个构造函数产生实例时，比如var obj = new Func()时，其背后的步骤是这样的
+    1.创建一个继承自Func.prototype的新对象
+    2.执行构造函数Func，执行时，相应的参数会被传入，同时上下文(this)会被指定为第一步创建的新实例
+    3.如果构造函数返回了一个对象，那么这个对象会取代步骤1中new出来的实例被返回，如果构造函数没有返回对象，那么new出来的结果为第一步创建的对象 
+    */
+
+    // new运算符实现原理
+    var new1 = function (func) {
+        let newObj = Object.create(fun.prototype);
+        let returnObj = func.call(newObj);
+        if (typeof returnObj === 'object') {
+            return returnObj;
+        } else {
+            return newObj;
+        }
+    }
+</script>
+
+</html>

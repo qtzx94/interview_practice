@@ -583,18 +583,18 @@ src='https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.c
 		// 函数柯里化：把接受多个参数的函数变换成接受一个单一参数（初始函数的第一个参数）的函数，并返回 接受余下参数而且返回结果的新函数 的技术
 
 		// 普通add函数
-		function add(x, y) {
-			return x + y;
-		}
+		// function add(x, y) {
+		// 	return x + y;
+		// }
 
-		// 柯里化后的add函数
-		function curryingAdd(x) {
-			return function(y) {
-				return x + y;
-			}
-		}
+		// // 柯里化后的add函数
+		// function curryingAdd(x) {
+		// 	return function(y) {
+		// 		return x + y;
+		// 	}
+		// }
 
-		console.log(curryingAdd(1)(2));
+		// console.log(curryingAdd(1)(2));
 
 		// // 立即执行函数
 		// (function() {
@@ -635,10 +635,11 @@ src='https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.c
 		// console.log(list(1, 2, 3));
 
 
-		// 实现一个add方法，使计算结果能够满足如下预期：
-		// add(1)(2)(3) = 6;
-		// add(1, 2, 3)(4) = 10;
-		// add(1)(2)(3)(4)(5) = 15;
+		/* 实现一个add方法，使计算结果能够满足如下预期：
+		add(1)(2)(3) = 6;
+		add(1, 2, 3)(4) = 10;
+		add(1)(2)(3)(4)(5) = 15; 
+		*/
 
 		// function add() {
 		// 	// 第一次执行时，定义一个数组专门用来存储所有的参数

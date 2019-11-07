@@ -9,53 +9,61 @@
 </head>
 
 <body>
+    JavaScript的运行机制：
+    描述1：
+    栈（后进先出，js主线程的函数执行，都压到这栈中）-> 遇到异步函数，如setTimeout，交给指定异步处理模块处理，然后继续执行同步代码
+    -> 异步处理模块（定时器、网络请求、Promise、I/O、UI渲染 ···）-> 异步函数达到触发条件，比如定时器到时，Ajax请求返回，那么把相应的回调函数处理，根据异步模块类型，压入指定任务队列
+    -> 任务队列（宏任务队列1、宏任务队列2、···、宏任务队列N、微任务队列（只有一个））
+    -> 当函数的执行栈为空时，从任务队列取一个任务（函数）来执行，再次为空，再取一个任务来执行，如此循环执行，就是事件循环，即Event Loop
+
+    描述2：
+    1.所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）
+    2.主线程之外，还存在一个"任务队列"（task queue），只要异步任务有了运行结果，就在"任务队列"中放置一个事件
+    3.一旦"执行栈"中所有的同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件，及其对应的异步任务，于是结束等待状态，进入"执行栈"开始执行
+    4.主线程不断重复上边的第三步
+
+    js引擎（引擎：解释并编译代码，让它变成能交给机器运行的代码runnable commands）是单线程的，负责维护任务队列，并通过Event Loop的机制，按顺序把任务放入栈中执行，
+    异步处理模块，是由runtime（运行环境）提供的，拥有和js引擎互不干扰的线程
+
+    执行栈：执行任务队列中的某个任务，这个被执行的任务就称为执行栈（当执行某个函数、用户点击一次鼠标，Ajax完成，一个图片加载完成等事件发生时，只要指定过回调函数，这些事件放在任务队列中，然后执行栈再去任务队列读取、执行,
+    遵循先进先出原则。）
+
+    1.理解js单线程概念
+
+    2.理解任务队列（task queue）
+    异步任务分为宏任务和微任务
+    1)、宏任务队列（macro tasks）(宏任务队列可以有多个，微任务队列只有一个)
+    script(整体代码)、setTimeout、setInterval、setImmediate(Node.js环境)、I/O、UI rendering、postMessage、MessageChannel
+    2)、微任务队列（micro tasks）
+    原生Promise、process.nextTick(Node.js环境)、Object.observer、MutationObserver
+    
+    注：Promise构造函数同步执行，promise.then异步执行，整体script代码是宏任务
+    async标记的函数会返回一个Promise对象（是同步执行），可以使用then方法添加回调函数，await后面紧跟着函数是同步执行，但是await下面的语句会被当成微任务添加到当前任务队列末尾异步执行
+
+    3.理解Event Loop
+    Event loop中，每一次循环称为tick，每一次的tick任务如下：
+    1.执行栈选择最先进入队列的宏任务（通常是script整体代码），如果有则执行
+    2.检查是否存在Microtask，如果存在则不停的执行，直至清空Microtask队列
+    3.更新render（每一次事件循环，浏览器都可能会去更新渲染）
+    4.重复以上步骤
+    （当函数的执行栈为空时，从任务队列取一个任务（函数）来执行，再次为空，再取一个任务来执行，如此循环执行，就是事件循环，即Event Loop）
+
+    4.理解哪些语句会放入异步任务队列
+
+    5.理解语句放入异步任务队列的时机
+    异步函数达到触发条件，比如定时器到时，Ajax请求返回，那么把相应的回调函数处理，根据异步模块类型，压入指定任务队列
     <script>
-        // JavaScript的运行机制：
-        // 描述1：
-        //      栈（后进先出，js主线程的函数执行，都压到这栈中）-> 遇到异步函数，如setTimeout，交给指定异步处理模块处理，然后继续执行同步代码
-        //      -> 异步处理模块（定时器、网络请求、Promise、I/O、UI渲染 ···）-> 异步函数达到触发条件，比如定时器到时，Ajax请求返回，那么把相应的回调函数处理，根据异步模块类型，压入指定任务队列
-        //      -> 任务队列（宏任务队列1、宏任务队列2、···、宏任务队列N、微任务队列（只有一个））
-        //      -> 当函数的执行栈为空时，从任务队列取一个任务（函数）来执行，再次为空，再取一个任务来执行，如此循环执行，就是事件循环，即Event Loop
-
-        // 描述2：
-        //      1.所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）
-        //      2.主线程之外，还存在一个"任务队列"（task queue），只要异步任务有了运行结果，就在"任务队列"中放置一个事件
-        //      3.一旦"执行栈"中所有的同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件，及其对应的异步任务，于是结束等待状态，进入"执行栈"开始执行
-        //      4.主线程不断重复上边的第三步
-
-        // js引擎（引擎：解释并编译代码，让它变成能交给机器运行的代码runnable commands）是单线程的，负责维护任务队列，并通过Event Loop的机制，按顺序把任务放入栈中执行，异步处理模块，是由runtime（运行环境）提供的，拥有和js引擎互不干扰的线程
-
-        // 1.理解js单线程概念
-
-        // 2.理解任务队列（task queue）
-        //         1)、宏任务队列（macro tasks）(宏任务队列可以有多个，微任务队列只有一个)
-        //                 script(全局任务)、setTimeout、setInterval、setImmediate、I/O、UI rendering
-        //         2)、微任务队列（micro tasks）
-        //                 原生Promise、process.nextTick(node.js中进程相关的对象)、Promise、Object.observer、MutationObserver
-        //          注：Promise构造函数同步执行，promise.then异步执行，第一个全局任务（script）是宏任务
-        //              async标记的函数会返回一个Promise对象（是同步执行），可以使用then方法添加回调函数，await后面紧跟着函数是同步执行，但是await下面的语句会被当成微任务添加到当前任务队列末尾异步执行  
-
-        // 3.理解Event Loop
-        //      当函数的执行栈为空时，从任务队列取一个任务（函数）来执行，再次为空，再取一个任务来执行，如此循环执行，就是事件循环，即Event Loop
-
-        // 4.理解哪些语句会放入异步任务队列
-
-        // 5.理解语句放入异步任务队列的时机
-        //      异步函数达到触发条件，比如定时器到时，Ajax请求返回，那么把相应的回调函数处理，根据异步模块类型，压入指定任务队列
-
         // eg1:
         console.log('script start');
 
         setTimeout(function () {
             console.log('setTimeout');
         }, 0);
-
         Promise.resolve().then(function () {
             console.log('promise1');
         }).then(function () {
             console.log('promise2');
         });
-
         console.log('script end');
 
         // eg2:
@@ -65,14 +73,12 @@
                 console.log('setTimeout2')
             }, 0)
         })
-
         setTimeout(() => {
             console.log('setTimeout1')
             Promise.resolve().then(() => {
                 console.log('Promise2')
             })
         }, 0)
-
         setTimeout(() => {
             console.log(1)
         }, 0)
@@ -85,6 +91,7 @@
             console.log(4)
         })
         console.log(5)
+        // 2 5 promise1 3 4 setTimeout1 promise2 1 setTimeout2
 
         // eg3:
         new Promise((resolve, reject) => {
@@ -104,7 +111,7 @@
             console.log("then12")
         })
 
-
+        // eg4:
         async function async1() {
             console.log('async1 start')
             await async2()
@@ -127,30 +134,25 @@
         console.log('script end')
         // script start -> async1 start -> saync2 -> promise1 -> script end -> async1 end -> promise2 -> setTimeout
 
+        // eg5:
         new Promise(function (resolve) {
             resolve(console.log("promise1"));
         }).then(function () {
             console.log("promise2");
         });
-
         async function async1() {
             console.log("async1 start");
             await async2();
             console.log("async1 end");
         }
-
         async function async2() {
             console.log('async2');
         }
-
         console.log("script start");
-
         setTimeout(function () {
             console.log("settimeout");
         }, 0);
-
         async1();
-
         console.log('script end');
         // promise1 -> script start -> async1 start -> async2 -> script end -> promise2 -> async1 end -> setTimeout
 
@@ -162,30 +164,24 @@
             await async2();
             const newPromise6 = new Promise(function (resolve, reject) {
                 resolve(console.log('promise11111'));
-            }).then(() => { 
+            }).then(() => {
                 console.log('then22222');
             });
             console.log("async1 end");
         }
-
         async function async2() {
             console.log('async2');
         }
-
         console.log("script start");
-
         setTimeout(function () {
             console.log("setTimeout");
         }, 0);
-
         async1();
-
         new Promise(function (resolve) {
             resolve(console.log("promise1"));
         }).then(function () {
             console.log("promise2");
         });
-
         console.log('script end');
         // script start -> async1 start -> async2 -> promise1 -> script end -> promise11111 -> async1 end -> promise2 -> then22222 -> setTimeout
     </script>
