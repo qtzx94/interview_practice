@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>cssLayout</title>
+    <title>css world</title>
 </head>
 <body>
     <!-- 圣杯布局：float+负margin+padding+position
@@ -15,11 +15,11 @@
         4、设置body的padding值给左右两块内容留空间。 
         5、设置left、right为相对定位，左侧的left属性值为负自身宽度，右侧的right属性值为负自身宽度。 
     -->
-    <div class="body">
+    <!-- <div class="body">
         <div class="container">2</div>
         <div class="left">1</div>
         <div class="right">3</div>
-    </div>
+    </div> -->
 
     <!-- 双飞翼布局: float+负margin+margin
         布局步骤： 
@@ -103,7 +103,7 @@
     </div>
     <p><button id="button">再增加一条数据</button></p> -->
 
-    <!-- 正在加载中<dot>...</dot> -->
+    正在加载中<dot>...</dot>
     <!-- <div class="wscont">
         很长很长的一句话，很长很长的一句话，
         很长很长的一句话，很长很长的一句话。
@@ -129,7 +129,7 @@
             object-fit: fill;
         } */
         /* 圣杯布局 */
-         .body {
+         /* .body {
             padding: 0 150px;
         }
 
@@ -155,7 +155,7 @@
             right: -150px;
             margin-left: -150px;
             background: yellow;
-        } 
+        }  */
 
 
         /* 双飞翼布局 */
@@ -243,11 +243,11 @@
         /* .container {
             width: 280px;
             margin: 0 auto;
-            padding: 40px 0;
+            padding: 20px 0;
             background-color: #f0f3f9;
             animation: width 2s infinite alternate;
-            alternate:动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。
-            infinite:指定动画应该播放无限次（永远）
+            alternate: 交替，轮换；动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。
+            infinite: 无限的，无穷的；指定动画应该播放无限次（永远）
         }
 
         @keyframes width {
@@ -363,7 +363,7 @@
             width: 256px;
             height: 256px;
             margin: auto;
-            border-bottom: 1px dashed #ccc;
+            border-bottom: 1px dashed red;
             text-align: justify;
         }
         .box:before {
@@ -404,14 +404,14 @@
             66% { transform: translateY(-1em); }
         }
 
-        .wscont {
+        /* .wscont {
             width: 300px;
             padding: 12px;
             border: 1px dashed red;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
+        } */
 
     </style>
     <!-- <script type="text/javascript" src="./iscroll.js"></script> -->
@@ -444,42 +444,42 @@
         //     })
         // }
 
-        // if (document.querySelector) {
-        // var eleBox = document.getElementById('box');
-        // // 目前柱子元素和个数
-        // var eleBars = document.querySelectorAll('#box > i');
-        // var lenBar = eleBars.length;
-        // if (eleBox && lenBar) {
-        //     for (var indexBar = 0; indexBar < lenBar; indexBar += 1) {
-        //         // 柱形图的柱子高度和背景色随机
-        //         eleBars[indexBar].style.height = Math.ceil(256 * Math.random()) + 'px';
-        //         eleBars[indexBar].style.backgroundColor = '#' + (Math.random() + '').slice(-6);
-        //     }
-        // }
+        if (document.querySelector) {
+        var eleBox = document.getElementById('box');
+        // 目前柱子元素和个数
+        var eleBars = document.querySelectorAll('#box > i');
+        var lenBar = eleBars.length;
+        if (eleBox && lenBar) {
+            for (var indexBar = 0; indexBar < lenBar; indexBar += 1) {
+                // 柱形图的柱子高度和背景色随机
+                eleBars[indexBar].style.height = Math.ceil(256 * Math.random()) + 'px';
+                eleBars[indexBar].style.backgroundColor = '#' + (Math.random() + '').slice(-6);
+            }
+        }
 
-        // // 增加数据
-        // var eleBtn = document.getElementById('button');
-        // if (eleBtn && lenBar) {
-        //     eleBtn.onclick = function() {
-        //         // 随机高度和背景色
-        //         var height = Math.ceil(256 * Math.random()) + 'px';
-        //         var backgroundColor = '#' + (Math.random() + '').slice(-6);
+        // 增加数据
+        var eleBtn = document.getElementById('button');
+        if (eleBtn && lenBar) {
+            eleBtn.onclick = function() {
+                // 随机高度和背景色
+                var height = Math.ceil(256 * Math.random()) + 'px';
+                var backgroundColor = '#' + (Math.random() + '').slice(-6);
 
-        //         // 创建柱子元素
-        //         var eleClone = eleBars[0].cloneNode();
+                // 创建柱子元素
+                var eleClone = eleBars[0].cloneNode();
 
-        //         eleClone.style.height = height;
-        //         eleClone.style.backgroundColor = backgroundColor;
+                eleClone.style.height = height;
+                eleClone.style.backgroundColor = backgroundColor;
 
-        //         eleBox.innerHTML = eleBox.innerHTML.replace(/I><I/ig, 'I> <I') + ' ' + eleClone.outerHTML;
+                eleBox.innerHTML = eleBox.innerHTML.replace(/I><I/ig, 'I> <I') + ' ' + eleClone.outerHTML;
 
-        //         lenBar+=1;
-        //         // 最多10条数据
-        //         if (lenBar == 10) {
-        //             this.setAttribute('disabled', 'disabled');
-        //         }
-        //     };
-        // }
+                lenBar+=1;
+                // 最多10条数据
+                if (lenBar == 10) {
+                    this.setAttribute('disabled', 'disabled');
+                }
+            };
+        }
     }
     </script>
 </body>

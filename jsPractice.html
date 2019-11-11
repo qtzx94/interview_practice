@@ -205,11 +205,11 @@
 	// console.log(stringValue.substring(3, -4)); // = substring(0, 3) "hel" (如果转化后的第一个参数比第二个参数大，那么该方法在提取子串之前会先交换这两个参数。)
 
 
-	// var colorText = "red, blue, green, yellow";
-	// var color1 = colorText.split(",");
-	// var color2 = colorText.split(",", 2);
-	// console.log(color1);
-	// console.log(color2);
+	var colorText = "red, blue, green, yellow";
+	var color1 = colorText.split(",");
+	var color2 = colorText.split(",", 2);
+	console.log(color1);
+	console.log(color2);
 
 	// eval("alert('hi')");
 
@@ -239,138 +239,138 @@
 
 	// var person1 = createPerson("Nicholas", 29, "Software Engineer");
 	// var person2 = createPerson("Greg", 27, "Doctor");
-        // console.log(person1, person2);
+	// console.log(person1, person2);
 
-        // 二、构造函数模式
-        // function Person(name, age, job) {
-        //     this.name = name;
-        //     this.age = age;
-        //     this.job = job;
-        //     this.sayName = function() {
-        //         alert(this.name);
-        //     };
-        // }
+	// 二、构造函数模式
+	// function Person(name, age, job) {
+	// 	this.name = name;
+	// 	this.age = age;
+	// 	this.job = job;
+	// 	this.sayName = function() {
+	// 			alert(this.name);
+	// 	};
+	// }
 
-        // // 1.作为构造函数调用
-        // var person1 = new Person("Nicholas", 29, "Software Engineer");
-        // var person2 = new Person("Greg", 27, "Doctor");
-        // person1.sayName();
+	// // 1.作为构造函数调用
+	// var person1 = new Person("Nicholas", 29, "Software Engineer");
+	// var person2 = new Person("Greg", 27, "Doctor");
+	// person1.sayName();
 
-        // // 2.作为普通函数调用
-        // Person("Greg", 27, "Doctor");
-        // window.sayName();
+	// // 2.作为普通函数调用
+	// Person("Greg", 27, "Doctor");
+	// window.sayName();
 
-        // // 3.在另一个对象的作用域中调用
-        // var obj = new Object();
-        // Person.call(obj, "Kristen", 25, "actress");
-        // obj.sayName();
+	// // 3.在另一个对象的作用域中调用
+	// var obj = new Object();
+	// Person.call(obj, "Kristen", 25, "actress");
+	// obj.sayName();
 
-        // 三、原型模式
-        // function Person() {}
+	// 三、原型模式
+	// function Person() {}
 
-        // Person.prototype.name = "Nicholas";
-        // Person.prototype.age = 29;
-        // Person.prototype.job = "Software Engineer";
-        // Person.prototype.sayName = function() {
-        //     alert(this.name);
-        // };
+	// Person.prototype.name = "Nicholas";
+	// Person.prototype.age = 29;
+	// Person.prototype.job = "Software Engineer";
+	// Person.prototype.sayName = function() {
+	//     alert(this.name);
+	// };
 
-        // var person1 = new Person();
-        // person1.sayName();
-        // console.log(person1);
-        // var person2 = new Person();
-        // person2.sayName();
+	// var person1 = new Person();
+	// person1.sayName();
+	// console.log(person1);
+	// var person2 = new Person();
+	// person2.sayName();
 
-        // alert(person1.sayName == person2.sayName);
+	// alert(person1.sayName == person2.sayName);
 
-        // function functionName(arg0, arg1, arg2) {
+	// function functionName(arg0, arg1, arg2) {
 
-        // }
-        // console.log(functionName);
-        // alert(functionName.name);
+	// }
+	// console.log(functionName);
+	// alert(functionName.name);
 
-        // confirm("Are you sure?");
-        // alert("Are you sure?");
-        // prompt("Are you sure?");
+	// confirm("Are you sure?");
+	// alert("Are you sure?");
+	// prompt("Are you sure?");
 
-        // if(confirm("Are you sure?")) {
-        //     alert("I'm so glad you're sure!");
-        // }else {
-        //     alert("I'm sorry to hear you're not sure.");
-        // }
+	// if(confirm("Are you sure?")) {
+	//     alert("I'm so glad you're sure!");
+	// }else {
+	//     alert("I'm sorry to hear you're not sure.");
+	// }
 
-        // var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
-        // var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
-        // console.log(leftPos, topPos);
+	// var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
+	// var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
+	// console.log(leftPos, topPos);
 
-        // window.moveTo(300, 300);
-        // console.log(window);
+	// window.moveTo(300, 300);
+	// console.log(window);
 
-        // console.log(window.innerWidth, window.innerHeight);
-        // console.log(window.outerWidth, window.outerHeight);
-        // console.log(document.documentElement.clientWidth, document.documentElement.clientHeight);
+	// console.log(window.innerWidth, window.innerHeight);
+	// console.log(window.outerWidth, window.outerHeight);
+	// console.log(document.documentElement.clientWidth, document.documentElement.clientHeight);
 
-        // window.resizeTo(100, 100);
-        // window.open('http://www.baidu.com', '_blank');
-        // window.close();
+	// window.resizeTo(100, 100);
+	// window.open('http://www.baidu.com', '_blank');
+	// window.close();
 
-        // var timeoutId = setTimeout(function() {
-        //     alert('hello world!');
-        // }, 1000);
+	// var timeoutId = setTimeout(function() {
+	//     alert('hello world!');
+	// }, 1000);
 
-        // clearTimeout(timeoutId);
+	// clearTimeout(timeoutId);
 
-        // setInterval(function() {
-        //     alert('hello world');
-        // }, 1000);
+	// setInterval(function() {
+	//     alert('hello world');
+	// }, 1000);
 
 
-        // var num = 0;
-        // var max = 10;
-        // var inervalId = null;
+	// var num = 0;
+	// var max = 10;
+	// var inervalId = null;
 
-        // function incrementNumber() {
-        //     console.log(num);
-        //     num++;
+	// function incrementNumber() {
+	//     console.log(num);
+	//     num++;
 
-        //     if(num == max) {
-        //         clearInterval(intervalId);
-        //         alert("Done");
-        //     }
-        // }
+	//     if(num == max) {
+	//         clearInterval(intervalId);
+	//         alert("Done");
+	//     }
+	// }
 
-        // intervalId = setInterval(incrementNumber, 500);
+	// intervalId = setInterval(incrementNumber, 500);
 
-        // prompt("what's you name?", "Michael");
+	// prompt("what's you name?", "Michael");
 
-        // console.log(window.location);
+	// console.log(window.location);
 
-        // setTimeout(function() {
-        //     location.replace("https://www.baidu.com");
-        // }, 1000);
+	// setTimeout(function() {
+	//     location.replace("https://www.baidu.com");
+	// }, 1000);
 
-        // var url = document.URL;
+	// var url = document.URL;
 
-        // console.log(url);
+	// console.log(url);
 
-        // for(var i = 0; i <10; i++) {
-        //     console.log("循环体中：" + i);
-        // }
+	// for(var i = 0; i <10; i++) {
+	//     console.log("循环体中：" + i);
+	// }
 
-        // console.log("循环体外：" + i);
+	// console.log("循环体外：" + i);
 
-        // var name = 'qtzx';
-        // var age = 25;
-        // console.log('name:' + name + ',age:' + age); // 传统写法
-        // console.log(`name:${name},age:${age}`); //es6写法
+	// var name = 'qtzx';
+	// var age = 25;
+	// console.log('name:' + name + ',age:' + age); // 传统写法
+	// console.log(`name:${name},age:${age}`); //es6写法
 
-        // var fn2 = (a, b) => a + b;
-        // console.log(fn2(1, 2));
+	// var fn2 = (a, b) => a + b;
+	// console.log(fn2(1, 2));
 
-        // var originalTitle = document.title;
-        // console.log(originalTitle);
+	// var originalTitle = document.title;
+	// console.log(originalTitle);
 
-        // document.title = "Iron Man";
+	// document.title = "Iron Man";
 
 	// document.write("<strong>" + (new Date()).toString() + "</strong>");
 

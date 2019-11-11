@@ -72,8 +72,8 @@
 </head>
 
 <body>
-    <!-- <div id="app">
-        <div :style="{ fontSize: postFontSize + 'em'}">
+    <div id="app">
+        <!-- <div :style="{ fontSize: postFontSize + 'em'}">
             <blog-post v-for="post in posts" :key="post.id" :post="post" @enlarge-text="postFontSize += $event">
             </blog-post>
         </div>
@@ -84,8 +84,9 @@
         </alert-box>
         <p title="hello">world</p>
         <base-input @click.native="onFocus" :value="111" :label="222"></base-input>
-        <submit-button>Save</submit-button>
-        <base-layout>
+        <submit-button>Save</submit-button> -->
+        
+        <!-- <base-layout>
             <template v-slot:header>
                 <h1>Here might be a page title</h1>
             </template>
@@ -96,18 +97,18 @@
             <template v-slot:footer>
                 <p>Here's some contact info</p>
             </template>
-        </base-layout>
-    </div> -->
+        </base-layout> -->
+    </div>
     <div id="dynamic-component-demo">
-        <!-- <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
+        <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
             v-on:click="currentTab = tab">
             {{ tab }}
         </button>
         <keep-alive>
             <component v-bind:is="currentTabComponent" class="tab"></component>
-        </keep-alive> -->
-        <focus-input></focus-input>
-        <input type="text">
+        </keep-alive>
+        <!-- <focus-input></focus-input>
+        <input type="text"> -->
         <anchored-heading :level="1">Hello world!</anchored-heading>
         <anchored-heading :level="2">Hello world!</anchored-heading>
         <anchored-heading :level="3">Hello world!</anchored-heading>

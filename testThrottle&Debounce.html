@@ -10,8 +10,31 @@
 
 <body>
     <h1>test throttle and debounce</h1>
+
+    <div id="content"
+        style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;">
+    </div>
+
+
 </body>
 <script>
+    // let num = 1;
+    // let content = document.getElementById('content');
+
+    // function count() {
+    //     content.innerHTML = num++;
+    // };
+    // content.onmousemove = count;
+</script>
+<script>
+    // 防抖：即延时执行，指触发事件后在规定的时间内回调函数只能执行一次，如果在规定的时间内又触发了该时间，则会重新开始算规定时间
+
+    // 应用场景：
+    //      1.如果客户连续操作会导致频繁的事件回调，引起页面卡顿
+    //      2.客户只关心最后一次操作（停止连续操作后）所返回的结果
+    // eg：
+    // 输入搜索联想，用户在不断输入值时，用防抖来节约资源
+    // 按钮点击：收藏、点赞等功能
     let throttle = function (func, delay) {
         let timer = null;
         return () => {
@@ -32,8 +55,8 @@
 
     let debounce = function (func, wait) {
         var timeout = null;
-        return function () {
-            if (timeout !== null) clearTimeout(timeout); // 如果多次触发 将上次记录延迟清除
+        return () => {
+            clearTimeout(timeout); // 如果多次触发 将上次记录延迟清除
             timeout = setTimeout(() => {
                 func.apply(this, arguments);
                 timeout = null;
@@ -41,7 +64,7 @@
         };
     }
 
-    window.addEventListener('resize', debounce(handle, 1000)); // 防抖： 事件触发动作完成后一段时间触发一次
+    window.addEventListener('resize', debounce(handle, 1000)); // 防抖: 事件触发动作完成后一段时间触发一次
 
     // 工厂模式创建对象
     function createPerson(name) {
@@ -52,7 +75,7 @@
 
     var person1 = createPerson('张三');
 
-    /* 当我们用new运算符new一个构造函数产生实例时，比如var obj = new Func()时，其背后的步骤是这样的
+    /* 当我们用new运算符new一个构造函数产生实例时，比如var obj = new Func()时，其背后的步骤是这样的:
     1.创建一个继承自Func.prototype的新对象
     2.执行构造函数Func，执行时，相应的参数会被传入，同时上下文(this)会被指定为第一步创建的新实例
     3.如果构造函数返回了一个对象，那么这个对象会取代步骤1中new出来的实例被返回，如果构造函数没有返回对象，那么new出来的结果为第一步创建的对象 
@@ -68,6 +91,16 @@
             return newObj;
         }
     }
+
+    var myName = 'qtzx';
+    function testThis() {
+        var myName = 'zb';
+        setTimeout(() => {
+            console.log(this.myName)
+        }, 1000) 
+    };
+
+    testThis();
 </script>
 
 </html>
