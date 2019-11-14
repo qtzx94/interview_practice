@@ -21,68 +21,68 @@
         }
     </style>
     <script>
-        function showProview(source) {
-            var file = source.files[0];
-            if(window.FileReader) {
-                var fr = new FileReader();
-                fr.onloadend = function(e) {
-                    document.getElementById('imgSrc').src = e.target.result;
-                };
+        // function showProview(source) {
+        //     var file = source.files[0];
+        //     if(window.FileReader) {
+        //         var fr = new FileReader();
+        //         fr.onloadend = function(e) {
+        //             document.getElementById('imgSrc').src = e.target.result;
+        //         };
 
-                fr.readAsDataURL(file);
-            }
-        }
+        //         fr.readAsDataURL(file);
+        //     }
+        // }
         // 1.组合继承，核心是在子类的构造函数中通过 Parent.call(this) 继承父类的属性，然后改变子类的原型为 new Parent() 来继承父类的函数
         // 优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类函数的时候调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费
 
-        // function Parent(value) {
-        //     this.val = value;
-        // }
+        function Parent(value) {
+            this.val = value;
+        }
 
-        // Parent.prototype.getValue = function() {
-        //     console.log(this.val);
-        // }
+        Parent.prototype.getValue = function() {
+            console.log(this.val);
+        }
 
-        // function Child(value) {
-        //     Parent.call(this, value);
-        // }
+        function Child(value) {
+            Parent.call(this, value);
+        }
 
-        // Child.prototype = new Parent();
+        Child.prototype = new Parent();
 
-        // const child = new Child(1);
+        const child = new Child(1);
 
-        // child.getValue();
-        // console.log(child instanceof Parent);
+        child.getValue();
+        console.log(child instanceof Parent);
 
         // 2.寄生组合继承
         // 核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
 
-        // function Parent(value) {
-        //     this.val = value;
-        // }
+        function Parent(value) {
+            this.val = value;
+        }
 
-        // Parent.prototype.getValue = function() {
-        //     console.log(this.val);
-        // }
+        Parent.prototype.getValue = function() {
+            console.log(this.val);
+        }
 
-        // function Child(value) {
-        //     Parent.call(this, value);
-        // }
+        function Child(value) {
+            Parent.call(this, value);
+        }
 
-        // Child.prototype = Object.create(Parent.prototype, {
-        //     constructor: {
-        //         value: Child,
-        //         enumerable: false,
-        //         writable: true,
-        //         configurable: true
-        //     }
-        // })
+        Child.prototype = Object.create(Parent.prototype, {
+            constructor: {
+                value: Child,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        })
 
-        // const child = new Child(1);
+        const child = new Child(1);
 
-        // child.getValue();
+        child.getValue();
 
-        // console.log(child instanceof Parent);
+        console.log(child instanceof Parent);
 
         // 3.Class继承
         // class 实现继承的核心在于使用 extends 表明继承自哪个父类，并且在子类构造函数中必须调用 super，因为这段代码可以看成 Parent.call(this, value)。
@@ -156,18 +156,53 @@
         //     console.log(error);
         // })
 
-        // ES6新特性：
-        //     1.新增了块级作用域（let，const）
-        //     2.提供了定义类的语法糖（class）
-        //     3.新增了一种数据结构（Symbol）
-        //     4.新增了变量的解构赋值
-        //     5.函数参数允许设置默认值，引入了rest参数，新增了箭头函数
-        //     6.数组新增了一些API，如isArray/from/of 方法；数组实例新增了entries()，keys()和values()等方法
-        //     7.对象和数组新增了扩展运算符
-        //     8.ES6新增了模块化（import/export）
-        //     9.ES6新增了Set和Map数据结构
-        //     10.ES6原生提供Proxy构造函数，用来生成Proxy实例
-        //     11.ES6新增了生成器（Generator）和遍历器（Iterator）
+        // var name = "windowsName";
+
+        // var a = {
+        //     name: "Cherry",
+
+        //     func1: function() {
+        //         console.log(this.name);
+        //     },
+
+        //     func2: function() {
+        //         console.log(this);
+        //         setTimeout(() => {
+        //             this.func1();
+        //         }, 100)
+        //     }
+        // };
+
+        // a.func2();
+
+        var obj = {
+            value: 0,
+            fn: function() {
+                console.log(this)
+                var f = function() {
+                    console.log(this.value)
+                }
+                f();
+            }
+        }
+
+        obj.fn();
     </script>
+    ES6新特性：
+        1.新增了块级作用域（let，const）
+        2.提供了定义类的语法糖（class）
+        3.新增了一种数据结构（Symbol）
+        4.新增了变量的解构赋值
+        5.函数参数允许设置默认值，引入了rest参数，新增了箭头函数
+        6.数组新增了一些API，如isArray/from/of 方法；数组实例新增了entries()，keys()和values()等方法
+        7.对象和数组新增了扩展运算符
+        8.ES6新增了模块化（import/export）
+        9.ES6新增了Set和Map数据结构
+        10.ES6原生提供Proxy构造函数，用来生成Proxy实例
+        11.ES6新增了生成器（Generator）和遍历器（Iterator）
+
+    箭头函数：
+        箭头函数的this始终指向函数定义时的this，而非执行时。箭头函数中没有this绑定，必须通过查找作用域链来决定其值，
+        如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则，this为全局变量
 </body>
 </html>
