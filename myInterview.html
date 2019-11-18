@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Interview</title>
+  <style>
+    .ie-box,
+    .normal-box {
+      width: 100px;
+      height: 40px;
+      border: 1px solid red;
+      padding: 10px;
+      margin: 20px;
+      background: lightblue;
+    }
+
+    .ie-box {
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
   2019-11-14 乐贝
@@ -19,7 +34,25 @@
   6.项目遇到的难点？
   6.1 提到了项目中用到异步加载组件，具体是如何操作？
   7.父组件和子组件的mounted执行顺序？
-
   面试官反馈：知识点了解不深
+
+  2019-11-17 字节跳动
+  1.考察盒模型box-sizing的用法，判断background为蓝色部分的width的值
+  2.多维数组拆分成一维数组（编码）
+  3.问打印的a值
+    const fn = () => {
+      this.b = "y";
+    };
+
+    const a = { b: "x" };
+    fn.call(a);
+    console.log(a); 
+  4.put和post区别
+  5.cookie使用场景有哪些，和localstorage以及session区别
+  6.常见的前后端数据交互格式除了json还有哪些
+  7.合并两个数组并排序（编码）
+  面试官反馈：拆分多维数组可以使用递归解决
+  
+
 </body>
 </html>
