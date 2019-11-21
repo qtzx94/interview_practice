@@ -61,5 +61,30 @@
   7.合并两个数组并排序（编码）
   8.requestAnimationFrame接口和node的使用
   面试官反馈：拆分多维数组可以使用递归解决
+
+  2019-11-21 笔试
+  1.function C1(name) {
+      if(name) this.name = name;
+    }
+
+    function C2(name) {
+      this.name = name;
+    }
+
+    function C3(name) {
+      this.name = name || 'John';
+    }
+
+    C1.prototype.name = "Tom";
+    C2.prototype.name = "Tom";
+    C3.prototype.name = "Tom";
+    alert(new C1().name + new C2().name + new C3().name); // TomundefinedJohn
+
+    解析：
+      3个new操作符都没有传入初始变量，
+      C1中if条件不成立，所以没有name属性，访问原型上的name，输出Tom
+      C2执行new C2(undefined)，所以name为undefined
+      C3 new C3的name值为John，所以输出John
+
 </body>
 </html>
