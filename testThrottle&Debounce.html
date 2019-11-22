@@ -83,7 +83,7 @@
 
     // new运算符实现原理
     var new1 = function (func) {
-        let newObj = Object.create(fun.prototype);
+        let newObj = Object.create(func.prototype);
         let returnObj = func.call(newObj);
         if (typeof returnObj === 'object') {
             return returnObj;
