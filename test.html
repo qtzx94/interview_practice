@@ -167,16 +167,16 @@
 
         var o = new Object
 
-        o[Symbol.iterator] = function() {
+        o[Symbol.iterator] = function () {
             var v = 0
             return {
-                next: function() {
+                next: function () {
                     return { value: v++, done: v > 10 }
                 }
             }
         };
 
-        for(var v of o) {
+        for (var v of o) {
             console.log(v);
         }
 
@@ -189,13 +189,23 @@
                 console.log('valueOf');
                 return {}
             },
-            [Symbol.toPrimitive] () {
+            [Symbol.toPrimitive]() {
                 console.log('toPrimitive');
                 return 'primitive'
             }
         }
 
         console.log('hello' + obj);
+
+
+        const fn = () => {
+            console.log(this);
+            this.b = "y";
+        };
+
+        const a = { b: "x" };
+        fn.call(a);
+        // console.log(a); 
     </script>
 </body>
 
