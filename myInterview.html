@@ -25,14 +25,24 @@
   1.考察盒模型box-sizing的用法，判断background为蓝色部分的width的值
   2.多维数组拆分成一维数组（编码）
     const arr1 = [1, 3, [5, 7, [9, 11]], 13];
-    console.log(arr1.toString().split(','));
+    1.arr1.toString().split(",").sort((a,b)=>{ return a-b}).map(Number);
+    2.Array.from(new Set(arr1.flat(Infinity))).sort((a,b)=>{ return a-b });
+    // 递归思路
+    3.function flat(arr) {
+      return arr.reduce((acc, v) => {
+        let temp = Array.isArray(v) ? flat(v) : [v];
+        acc.push(...temp);
+        return acc;
+      }, []);
+    }
+    console.log(flat(arr1));
   3.问打印的a值
     const fn = () => {
       this.b = "y";
     };
 
     const a = { b: "x" };
-    fn.call(a);
+    fn.call(a); // call不会改变箭头函数this指向
     console.log(a); 
   4.put和post区别 
       post非幂等，put幂等（幂等：只要给定同样的输入，不论调用多少次都会给出同样回应，非幂等：会创建新的资源，给定同样的输入，输出不同）
@@ -89,12 +99,28 @@
   2.'hello world, this is a test' 将该字符串按单词反转，不能使用string的split方法
   ->'test a is this, world hello'
 
-  2019-12-3
-  1.target和currentTarget区别
-  2.rem和px区别
-  3.介绍一下vuex
-  4.IE、Firfox、Chrome浏览器区别
-  5.MVC和MVVM区别
+  2019-11-22 谷露软件
+   1.介绍一下现在在做的项目的一个功能点
+    思路：
+    1.先介绍这个功能的上下文
+    2.遇到了什么问题
+    3.怎么解决的
+    4.取得了什么样的效果
+   2.position属性值有哪些
+   3.js的数据类型有哪些
+   4.简单介绍一下事件循环机制
+    4.1.哪些属于微任务
+   5.js实现斐波那契数列
+    5.1使用递归容易造成什么后果
+   
+    面试官反馈：多学习js基础，基础扎实了，vue、react这类框架都不会很难
+
+  2019-12-3 
+    1.target和currentTarget区别
+    2.rem和px区别
+    3.介绍一下vuex
+    4.IE、Firfox、Chrome浏览器区别
+    5.MVC和MVVM区别
 
 </body>
 </html>
